@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Celeste Yoga — Yoga Teacher | Rocket™, Ashtanga, Vinyasa</title>
+    <meta
+      name="description"
+      content="Celeste Yoga — Rocket™, Ashtanga and Vinyasa classes in Newcastle. An inclusive space to come as you are and do what you can."
+    />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      #nav-mobile-panel {
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
+      }
+      #nav-mobile-panel.is-open {
+        max-height: 360px;
+        opacity: 1;
+      }
+      #icon-hamburger,
+      #icon-close {
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        position: absolute;
+      }
+      #icon-hamburger.is-hidden {
+        opacity: 0;
+        transform: rotate(45deg) scale(0.7);
+        pointer-events: none;
+      }
+      #icon-close.is-hidden {
+        opacity: 0;
+        transform: rotate(-45deg) scale(0.7);
+        pointer-events: none;
+      }
+      #contact-form input:-webkit-autofill,
+      #contact-form input:-webkit-autofill:hover,
+      #contact-form input:-webkit-autofill:focus,
+      #contact-form textarea:-webkit-autofill,
+      #contact-form textarea:-webkit-autofill:hover,
+      #contact-form textarea:-webkit-autofill:focus {
+        -webkit-text-fill-color: #000;
+        caret-color: #000;
+        transition: background-color 99999s ease-out;
+        box-shadow: 0 0 0 1000px #f9fafb inset;
+      }
+      /* Wednesday card grows when expanded; other days stay uniform min height */
+      #weds-card.weds-open {
+        min-height: unset;
+      }
+      #weds-panel {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        border-top-width: 0;
+        margin-top: 0;
+        padding-top: 0;
+        transition: max-height 300ms ease, opacity 220ms ease;
+      }
+      #weds-panel.is-open {
+        opacity: 1;
+        border-top: 1px solid #f3f4f6;
+        margin-top: 0.5rem;
+        padding-top: 1.25rem;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-white text-black antialiased">
+
+    <nav
+      class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200"
+      role="navigation"
+      aria-label="Main navigation"
+    >
+      <div class="max-w-7xl mx-auto px-6 md:px-12 py-4">
+        <div class="flex justify-between items-center">
+          <a href="#home" class="text-xl tracking-wider text-black hover:text-gray-600 transition-colors bg-transparent border-0 cursor-pointer font-normal p-0">
+            Celeste Yoga
+          </a>
+
+          <div class="hidden md:flex gap-8">
+            <a href="#welcome" class="text-sm tracking-wide text-gray-700 hover:text-black transition-colors">Welcome</a>
+            <a href="#classes" class="text-sm tracking-wide text-gray-700 hover:text-black transition-colors">Classes</a>
+            <a href="#about" class="text-sm tracking-wide text-gray-700 hover:text-black transition-colors">About</a>
+            <a href="#contact" class="text-sm tracking-wide text-gray-700 hover:text-black transition-colors">Contact</a>
+          </div>
+
+          <button
+            id="nav-burger"
+            class="md:hidden relative flex items-center justify-center w-10 h-10 text-black"
+            aria-expanded="false"
+            aria-controls="nav-mobile-panel"
+            aria-label="Toggle navigation menu"
+          >
+            <svg id="icon-hamburger" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg id="icon-close" class="w-6 h-6 is-hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        <div id="nav-mobile-panel" class="md:hidden border-t border-gray-100" aria-hidden="true">
+          <div class="pt-4 pb-2">
+            <div class="flex flex-col gap-4">
+              <a href="#welcome" class="text-sm tracking-wide text-gray-700 hover:text-black transition-colors text-left py-0.5">Welcome</a>
+              <a href="#classes" class="text-sm tracking-wide text-gray-700 hover:text-black transition-colors text-left py-0.5">Classes</a>
+              <a href="#about" class="text-sm tracking-wide text-gray-700 hover:text-black transition-colors text-left py-0.5">About</a>
+              <a href="#contact" class="text-sm tracking-wide text-gray-700 hover:text-black transition-colors text-left py-0.5">Contact</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-16">
+      <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1722094250550-4993fa28a51b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
+          alt=""
+          class="w-full h-full object-cover opacity-30"
+          decoding="async"
+        />
+      </div>
+      <div class="relative z-10 text-center px-6">
+        <h1 class="text-5xl sm:text-6xl md:text-8xl mb-8 md:mb-10 tracking-wider text-black font-bold">Celeste Yoga</h1>
+        <div class="flex flex-col md:flex-row md:flex-wrap items-center justify-center gap-y-2 md:gap-y-0 md:gap-x-4 text-lg md:text-2xl text-gray-600 tracking-wide">
+          <p>Yoga Teacher</p>
+          <span class="hidden md:inline-block h-1.5 w-1.5 rounded-full bg-gray-600" aria-hidden="true"></span>
+          <p>Rocket<sup class="text-[0.65em] -top-[0.15em]" aria-hidden="true">™</sup></p>
+          <span class="hidden md:inline-block h-1.5 w-1.5 rounded-full bg-gray-600" aria-hidden="true"></span>
+          <p>Ashtanga</p>
+          <span class="hidden md:inline-block h-1.5 w-1.5 rounded-full bg-gray-600" aria-hidden="true"></span>
+          <p>Vinyasa</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Welcome -->
+    <section id="welcome" class="py-24 reveal">
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <div class="grid md:grid-cols-5 gap-16 md:gap-20 items-center">
+        <div class="md:col-span-3">
+          <h2 class="text-4xl md:text-5xl mb-6 text-black font-semibold">Welcome</h2>
+          <div class="text-gray-700 leading-relaxed space-y-4">
+            <p>
+              Celeste is a dedicated Yoga teacher known for her passion of movement and wellbeing. Specialising in Rocket<sup class="text-xs">™</sup>, Ashtanga and Vinyasa, classes are created to be an inclusive space that invite you to come as you are and do what you can, recognising that each day, each body and each practice can be different.
+            </p>
+            <p>
+              Celeste&rsquo;s classes offer students the opportunity to explore their physical potential, create mental spaciousness and develop a deeper connection to self.
+            </p>
+          </div>
+        </div>
+        <div class="relative h-96 md:h-[500px] w-full md:col-span-2">
+          <img
+            src="images/welcome.png"
+            alt="Celeste — yoga practice"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+      </div>
+    </section>
+
+    <!-- Classes — card grid: 3 cols → 2 → 1 -->
+    <section id="classes" class="py-24 bg-gray-50 reveal">
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <h2 class="text-4xl md:text-5xl mb-12 md:mb-16 text-center text-black font-semibold">Classes</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-start">
+          <article class="bg-white p-6 md:p-8 border border-gray-200 shadow-sm rounded-sm w-full min-h-[15rem] md:min-h-[16rem] flex flex-col">
+            <h3 class="text-sm font-semibold tracking-wide text-black mb-5">Tues</h3>
+            <div class="flex flex-1 flex-col min-h-0">
+              <div class="space-y-4 shrink-0">
+                <div class="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                  <p class="text-gray-800 leading-relaxed">Vinyasa @ Dance City</p>
+                  <p class="text-gray-600 text-sm mt-1.5">5.30pm</p>
+                </div>
+              </div>
+              <div class="flex-1 min-h-[1px]" aria-hidden="true"></div>
+            </div>
+          </article>
+          <article
+            id="weds-card"
+            class="bg-white p-6 md:p-8 border border-gray-200 shadow-sm rounded-sm w-full min-h-[15rem] md:min-h-[16rem] flex flex-col"
+          >
+            <h3 class="text-sm font-semibold tracking-wide text-black mb-5">Weds</h3>
+            <div class="flex flex-1 flex-col min-h-0">
+              <div id="weds-preview" class="flex flex-1 flex-col min-h-0">
+                <div class="space-y-3 shrink-0">
+                  <p class="text-gray-800 leading-relaxed">Vinyasa @ Modern Yoga</p>
+                  <p class="text-gray-600 text-sm">12.00pm</p>
+                  <p class="text-sm text-gray-500 pt-1">+ 2 more classes today</p>
+                </div>
+                <div class="flex-1 min-h-[1px]" aria-hidden="true"></div>
+              </div>
+              <div id="weds-panel">
+                <div class="space-y-4">
+                  <div class="border-b border-gray-100 pb-4">
+                    <p class="text-gray-800 leading-relaxed">Vinyasa @ Modern Yoga</p>
+                    <p class="text-gray-600 text-sm mt-1.5">12.00pm</p>
+                  </div>
+                  <div class="border-b border-gray-100 pb-4">
+                    <p class="text-gray-800 leading-relaxed">Vinyasa @ Smarter Fitness</p>
+                    <p class="text-gray-600 text-sm mt-1.5">6.00pm</p>
+                  </div>
+                  <div class="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                    <p class="text-gray-800 leading-relaxed">Nurturing Flow @ Hotpod Jesmond</p>
+                    <p class="text-gray-600 text-sm mt-1.5">8.30pm</p>
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                id="weds-toggle"
+                class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 hover:text-gray-800 transition-colors shrink-0"
+                aria-expanded="false"
+                aria-controls="weds-panel"
+              >
+                <span id="weds-toggle-label">View full Wednesday schedule</span>
+                <svg id="weds-chevron" class="w-4 h-4 shrink-0 text-gray-500 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+          </article>
+          <article class="bg-white p-6 md:p-8 border border-gray-200 shadow-sm rounded-sm w-full min-h-[15rem] md:min-h-[16rem] flex flex-col">
+            <h3 class="text-sm font-semibold tracking-wide text-black mb-5">Thurs</h3>
+            <div class="flex flex-1 flex-col min-h-0">
+              <div class="space-y-4 shrink-0">
+                <div class="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                  <p class="text-gray-800 leading-relaxed">Rocket Yoga @ Modern Yoga</p>
+                  <p class="text-gray-600 text-sm mt-1.5">6.00pm</p>
+                </div>
+              </div>
+              <div class="flex-1 min-h-[1px]" aria-hidden="true"></div>
+            </div>
+          </article>
+          <article class="bg-white p-6 md:p-8 border border-gray-200 shadow-sm rounded-sm w-full min-h-[15rem] md:min-h-[16rem] flex flex-col">
+            <h3 class="text-sm font-semibold tracking-wide text-black mb-5">Fri</h3>
+            <div class="flex flex-1 flex-col min-h-0">
+              <div class="space-y-4 shrink-0">
+                <div class="border-b border-gray-100 pb-4">
+                  <p class="text-gray-800 leading-relaxed">Hot Flow @ Hot Yoga Ncl</p>
+                  <p class="text-gray-600 text-sm mt-1.5">10.45am</p>
+                </div>
+                <div class="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                  <p class="text-gray-800 leading-relaxed">Hotpod Flow @ Hotpod Jesmond</p>
+                  <p class="text-gray-600 text-sm mt-1.5">4.00pm</p>
+                </div>
+              </div>
+              <div class="flex-1 min-h-[1px]" aria-hidden="true"></div>
+            </div>
+          </article>
+          <article class="bg-white p-6 md:p-8 border border-gray-200 shadow-sm rounded-sm w-full min-h-[15rem] md:min-h-[16rem] flex flex-col">
+            <h3 class="text-sm font-semibold tracking-wide text-black mb-5">Sat</h3>
+            <div class="flex flex-1 flex-col min-h-0">
+              <div class="space-y-4 shrink-0">
+                <div class="border-b border-gray-100 pb-4">
+                  <p class="text-gray-800 leading-relaxed">Vinyasa @ Smarter Fitness</p>
+                  <p class="text-gray-600 text-sm mt-1.5">8.00am</p>
+                </div>
+                <div class="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                  <p class="text-gray-800 leading-relaxed">Vinyasa @ Modern Yoga</p>
+                  <p class="text-gray-600 text-sm mt-1.5">10.00am</p>
+                </div>
+              </div>
+              <div class="flex-1 min-h-[1px]" aria-hidden="true"></div>
+            </div>
+          </article>
+          <article class="bg-white p-6 md:p-8 border border-gray-200 shadow-sm rounded-sm w-full min-h-[15rem] md:min-h-[16rem] flex flex-col">
+            <h3 class="text-sm font-semibold tracking-wide text-black mb-5">Sun</h3>
+            <div class="flex flex-1 flex-col min-h-0">
+              <div class="space-y-4 shrink-0">
+                <div class="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+                  <p class="text-gray-800 leading-relaxed">Hotpod Flow @ Hotpod Jesmond</p>
+                  <p class="text-gray-600 text-sm mt-1.5">8.30am &amp; 10.00am</p>
+                </div>
+              </div>
+              <div class="flex-1 min-h-[1px]" aria-hidden="true"></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- About me -->
+    <section id="about" class="py-24 reveal">
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <div class="grid md:grid-cols-5 gap-14 md:gap-20 items-start">
+          <div class="relative h-96 md:h-[560px] w-full md:col-span-2">
+            <img
+              src="images/about.png"
+              alt="Celeste in yoga pose"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="md:col-span-3">
+            <h2 class="text-4xl md:text-5xl mb-8 text-black font-semibold">About me</h2>
+            <div class="space-y-6 text-gray-700 leading-relaxed">
+              <p>
+                Celeste spent the majority of her years as a dancer before finding Yoga. What began as a meditation practice to nurture her mind and overall wellbeing developed into a physical Yoga practice where Celeste found for the first time the opportunity to turn inward while moving outward. From outward performance to inward presence. This created the link between her love of movement and physicality with mental and spiritual wellbeing.
+              </p>
+              <p>
+                Celeste is a trained Rocket<sup class="text-xs">™</sup>, Ashtanga and Vinyasa teacher. All classes offer an equal balance of energy and grounding stability, a chance to hit pause on the external world and tend to yourself. Dedicating herself to the practice and the teachings of Yoga Celeste creates a blend of dynamic practices that help students develop body and breath awareness, mental and emotional resilience, and most importantly, a chance to play!
+              </p>
+              <p class="text-black font-medium">Come and be part of our wonderful community!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-16 md:py-20 bg-gray-50 reveal">
+      <div class="max-w-7xl mx-auto px-6 md:px-12">
+        <h2 class="text-4xl md:text-5xl mb-6 text-left text-black font-semibold">Contact Celeste</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-20 items-start">
+          <div class="md:col-span-3">
+            <div id="contact-form-block">
+              <a
+                href="#"
+                class="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors mb-5"
+                aria-label="Instagram"
+              >
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect>
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <circle cx="17.6" cy="6.4" r="1"></circle>
+                </svg>
+                <span>Instagram</span>
+              </a>
+              <p class="text-sm text-gray-500 mb-6 max-w-md leading-relaxed">
+                Even yogis need a pause sometimes. I occasionally step away from Instagram to return to myself — thank you for understanding.
+              </p>
+
+              <form id="contact-form" class="space-y-8">
+                <div>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    autocomplete="name"
+                    class="w-full px-4 py-4 bg-transparent border border-gray-300 text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 transition-colors"
+                    placeholder="Name"
+                  />
+                </div>
+                <div>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    autocomplete="email"
+                    class="w-full px-4 py-4 bg-transparent border border-gray-300 text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 transition-colors"
+                    placeholder="Email"
+                  />
+                </div>
+                <div>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows="6"
+                    class="w-full px-4 py-4 bg-transparent border border-gray-300 text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 transition-colors resize-none"
+                    placeholder="Your message..."
+                  ></textarea>
+                </div>
+                <div class="pt-4 text-left">
+                  <button
+                    type="submit"
+                    class="px-12 py-4 bg-black text-white hover:bg-gray-800 transition-colors tracking-wider text-sm"
+                  >
+                    SEND MESSAGE
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <div id="contact-success" class="hidden text-left py-12" role="status" aria-live="polite">
+              <p class="text-2xl text-black mb-4">Thank you for reaching out</p>
+              <p class="text-gray-600">I&rsquo;ll get back to you soon.</p>
+            </div>
+          </div>
+
+          <div class="relative h-96 md:h-[500px] w-full md:col-span-2">
+            <img
+              src="images/extra.png"
+              alt="Celeste yoga pose"
+              class="w-full h-full object-cover object-bottom"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-6 md:px-12 bg-black">
+      <div class="max-w-7xl mx-auto text-center">
+        <p class="text-gray-400 mb-6 text-sm tracking-wide">GET IN TOUCH</p>
+        <div class="flex flex-col gap-3 justify-center items-center mb-10">
+          <a href="mailto:celeste@example.com" class="text-gray-300 hover:text-white transition-colors">celeste@example.com</a>
+        </div>
+        <p class="text-xs text-gray-500 tracking-wide mb-6">© <span id="footer-year"></span> CELESTE YOGA. ALL RIGHTS RESERVED.</p>
+        <div class="flex justify-center gap-8 text-xs text-gray-500">
+          <a href="privacy.html" class="hover:text-gray-300 transition-colors">Privacy</a>
+          <a href="terms.html" class="hover:text-gray-300 transition-colors">Terms</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

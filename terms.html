@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Use — Celeste Yoga</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Inter", "system-ui", "sans-serif"] },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen bg-white text-neutral-900 antialiased">
+    <nav class="border-b border-neutral-200 bg-white/95 backdrop-blur-sm">
+      <div class="max-w-3xl mx-auto px-6 h-16 flex items-center">
+        <a href="index.html" class="text-sm font-semibold tracking-wider text-neutral-900 hover:text-neutral-600">← Celeste Yoga</a>
+      </div>
+    </nav>
+    <main class="max-w-3xl mx-auto px-6 py-12 md:py-16">
+      <h1 class="text-3xl md:text-4xl font-semibold text-neutral-900 mb-6">Terms of Use</h1>
+      <p class="text-neutral-600 leading-relaxed mb-4">
+        This is a placeholder terms of use page for the Celeste Yoga website. Replace this text with your own terms covering use of the site,
+        class bookings, liability, and any other legal points relevant to your practice.
+      </p>
+      <p class="text-neutral-600 leading-relaxed mb-4">
+        Last updated: <span id="terms-date"></span>
+      </p>
+    </main>
+    <footer class="border-t border-neutral-200 py-8 text-center text-sm text-neutral-500">
+      <a href="index.html" class="hover:text-neutral-900 transition-colors">Back to home</a>
+    </footer>
+    <script>
+      document.getElementById("terms-date").textContent = new Date().toLocaleDateString(undefined, {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+    </script>
+  </body>
+</html>

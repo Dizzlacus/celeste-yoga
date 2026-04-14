@@ -92,6 +92,13 @@
         margin-top: 0.5rem;
         padding-top: 1.25rem;
       }
+      @media (min-width: 768px) {
+        #home {
+          min-height: 0;
+          max-height: 800px;
+          height: 100vh;
+        }
+      }
     </style>
   </head>
   <body class="min-h-screen bg-white text-black antialiased">
@@ -147,9 +154,9 @@
     <section id="home" class="relative min-h-screen flex items-center justify-center pt-16">
       <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
         <img
-          src="https://images.unsplash.com/photo-1722094250550-4993fa28a51b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
+          src="images/celeste-hero.png"
           alt=""
-          class="w-full h-full object-cover opacity-30"
+          class="w-full h-full object-cover opacity-50"
           decoding="async"
         />
       </div>
@@ -184,9 +191,9 @@
         </div>
         <div class="relative h-96 md:h-[500px] w-full md:col-span-2">
           <img
-            src="images/welcome.png"
+            src="images/extra.png"
             alt="Celeste — yoga practice"
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover object-bottom opacity-80"
             loading="lazy"
             decoding="async"
           />
@@ -319,12 +326,12 @@
     <!-- About me -->
     <section id="about" class="py-24 reveal">
       <div class="max-w-7xl mx-auto px-6 md:px-12">
-        <div class="grid md:grid-cols-5 gap-14 md:gap-20 items-start">
+        <div class="grid md:grid-cols-5 gap-14 md:gap-20 items-center">
           <div class="relative h-96 md:h-[560px] w-full md:col-span-2">
             <img
               src="images/about.png"
               alt="Celeste in yoga pose"
-              class="w-full h-full object-cover"
+              class="w-full h-full object-cover opacity-80"
               loading="lazy"
               decoding="async"
             />
@@ -421,9 +428,9 @@
 
           <div class="relative h-96 md:h-[500px] w-full md:col-span-2">
             <img
-              src="images/extra.png"
+              src="images/welcome.png"
               alt="Celeste yoga pose"
-              class="w-full h-full object-cover object-bottom"
+              class="w-full h-full object-cover object-bottom opacity-80"
               loading="lazy"
               decoding="async"
             />
@@ -437,7 +444,7 @@
       <div class="max-w-7xl mx-auto text-center">
         <p class="text-gray-400 mb-6 text-sm tracking-wide">GET IN TOUCH</p>
         <div class="flex flex-col gap-3 justify-center items-center mb-10">
-          <a href="mailto:celeste@example.com" class="text-gray-300 hover:text-white transition-colors">celeste@example.com</a>
+          <a href="mailto:Celestehyoga@gmail.com" class="text-gray-300 hover:text-white transition-colors">Celestehyoga@gmail.com</a>
         </div>
         <p class="text-xs text-gray-500 tracking-wide mb-6">© <span id="footer-year"></span> CELESTE YOGA. ALL RIGHTS RESERVED.</p>
         <div class="flex justify-center gap-8 text-xs text-gray-500">

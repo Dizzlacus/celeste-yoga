@@ -99,6 +99,14 @@
           height: 100vh;
         }
       }
+      @media (max-width: 767px) {
+        #home picture img {
+          object-position: 45% center;
+        }
+      }
+      #home picture img {
+        will-change: transform;
+      }
     </style>
   </head>
   <body class="min-h-screen bg-white text-black antialiased">
@@ -153,22 +161,25 @@
     <!-- Hero -->
     <section id="home" class="relative min-h-screen flex items-center justify-center pt-16">
       <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-        <img
-          src="images/celeste-hero.png"
-          alt=""
-          class="w-full h-full object-cover opacity-50"
-          decoding="async"
-        />
+        <picture class="block w-full h-full">
+          <source media="(max-width: 767px)" srcset="images/celeste-mobile-hero.png" />
+          <img
+            src="images/celeste-hero.png"
+            alt=""
+            class="w-full h-full object-cover opacity-50"
+            decoding="async"
+          />
+        </picture>
       </div>
       <div class="relative z-10 text-center px-6">
         <h1 class="text-5xl sm:text-6xl md:text-8xl mb-8 md:mb-10 tracking-wider text-black font-bold">Celeste Yoga</h1>
-        <div class="flex flex-col md:flex-row md:flex-wrap items-center justify-center gap-y-2 md:gap-y-0 md:gap-x-4 text-lg md:text-2xl text-gray-600 tracking-wide">
+        <div class="flex flex-col md:flex-row md:flex-wrap items-center justify-center gap-y-2 md:gap-y-0 md:gap-x-4 text-lg md:text-2xl text-black tracking-wide">
           <p>Yoga Teacher</p>
-          <span class="hidden md:inline-block h-1.5 w-1.5 rounded-full bg-gray-600" aria-hidden="true"></span>
+          <span class="hidden md:inline-block h-1.5 w-1.5 rounded-full bg-black" aria-hidden="true"></span>
           <p>Rocket<sup class="text-[0.65em] -top-[0.15em]" aria-hidden="true">™</sup></p>
-          <span class="hidden md:inline-block h-1.5 w-1.5 rounded-full bg-gray-600" aria-hidden="true"></span>
+          <span class="hidden md:inline-block h-1.5 w-1.5 rounded-full bg-black" aria-hidden="true"></span>
           <p>Ashtanga</p>
-          <span class="hidden md:inline-block h-1.5 w-1.5 rounded-full bg-gray-600" aria-hidden="true"></span>
+          <span class="hidden md:inline-block h-1.5 w-1.5 rounded-full bg-black" aria-hidden="true"></span>
           <p>Vinyasa</p>
         </div>
       </div>

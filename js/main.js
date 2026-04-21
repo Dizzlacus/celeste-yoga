@@ -113,3 +113,37 @@
     }, 3000);
   });
 })();
+
+(function () {
+  const hero = document.getElementById("home");
+  const heroImage = document.querySelector("#home picture img");
+  if (!hero || !heroImage) return;
+
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (reduceMotion.matches) return;
+
+  let ticking = false;
+
+  function updateHeroParallax() {
+    const sectionTop = hero.offsetTop;
+    const sectionHeight = hero.offsetHeight;
+    const delta = window.scrollY - sectionTop;
+
+    // Keep the movement subtle and only while the hero is in view.
+    const inViewDelta = Math.max(0, Math.min(delta, sectionHeight));
+    const offset = Math.min(inViewDelta * 0.18, 72);
+
+    heroImage.style.transform = "translate3d(0," + offset.toFixed(2) + "px,0)";
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(updateHeroParallax);
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  updateHeroParallax();
+})();

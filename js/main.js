@@ -102,15 +102,39 @@
   const successEl = document.getElementById("contact-success");
   if (!form || !block || !successEl) return;
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    block.classList.add("hidden");
-    successEl.classList.remove("hidden");
-    form.reset();
-    window.setTimeout(() => {
-      successEl.classList.add("hidden");
-      block.classList.remove("hidden");
-    }, 3000);
+    const endpoint = form.getAttribute("action");
+    if (!endpoint) return;
+    const honeypot = form.querySelector('input[name="website"]');
+    if (honeypot && honeypot.value.trim() !== "") {
+      // Bots often fill hidden fields; silently drop.
+      form.reset();
+      return;
+    }
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        body: new FormData(form),
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!response.ok) throw new Error("Failed to send form");
+
+      block.classList.add("hidden");
+      successEl.classList.remove("hidden");
+      form.reset();
+      window.setTimeout(() => {
+        successEl.classList.add("hidden");
+        block.classList.remove("hidden");
+      }, 3000);
+    } catch (error) {
+      // Keep current UX simple and avoid a blocking alert.
+      console.error(error);
+    }
   });
 })();
 

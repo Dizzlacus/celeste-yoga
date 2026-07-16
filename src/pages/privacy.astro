@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const lastUpdated = new Date().toLocaleDateString('en-GB', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title="Privacy Policy — Celeste Yoga"
+  description="Privacy policy for the Celeste Yoga website."
+  stickyNav={false}
+>
+  <main class="max-w-3xl mx-auto px-6 py-12 md:py-16">
+    <h1 class="text-3xl md:text-4xl font-semibold text-neutral-900 mb-6">Privacy Policy</h1>
+    <p class="text-neutral-600 leading-relaxed mb-4">
+      This is a placeholder privacy policy for the Celeste Yoga website. Replace this text with your
+      own policy describing how you collect, use, and protect personal information (including contact
+      form submissions and analytics, if applicable).
+    </p>
+    <p class="text-neutral-600 leading-relaxed mb-4">
+      Last updated: {lastUpdated}
+    </p>
+    <div class="mt-10 pt-8 border-t border-neutral-200">
+      <a href="/" class="text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
+        >Back to home</a
+      >
+    </div>
+  </main>
+</BaseLayout>

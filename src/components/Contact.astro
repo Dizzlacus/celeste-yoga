@@ -1,0 +1,104 @@
+---
+---
+
+<section id="contact" class="py-16 md:py-20 bg-gray-50 reveal">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <h2 class="text-4xl md:text-5xl mb-6 text-left text-black font-semibold">Contact Celeste</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-20 items-start">
+      <div class="md:col-span-3">
+        <div id="contact-form-block">
+          <a
+            href="#"
+            class="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors mb-5"
+            aria-label="Instagram"
+          >
+            <svg
+              class="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              aria-hidden="true"
+            >
+              <rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.6" cy="6.4" r="1"></circle>
+            </svg>
+            <span>Instagram</span>
+          </a>
+          <p class="text-sm text-gray-500 mb-6 max-w-md leading-relaxed">
+            Even yogis need a pause sometimes. I occasionally step away from Instagram to return to
+            myself — thank you for understanding.
+          </p>
+
+          <form
+            id="contact-form"
+            class="space-y-8"
+            action="https://formspree.io/f/xnjllrza"
+            method="POST"
+          >
+            <div>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                autocomplete="name"
+                class="w-full px-4 py-4 bg-transparent border border-gray-300 text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 transition-colors"
+                placeholder="Name"
+              />
+            </div>
+            <div>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                autocomplete="email"
+                class="w-full px-4 py-4 bg-transparent border border-gray-300 text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 transition-colors"
+                placeholder="Email"
+              />
+            </div>
+            <div>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows="6"
+                class="w-full px-4 py-4 bg-transparent border border-gray-300 text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 transition-colors resize-none"
+                placeholder="Your message..."></textarea>
+            </div>
+            <div class="hidden" aria-hidden="true">
+              <label for="website">Website</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+            <div class="pt-4 text-left">
+              <button
+                type="submit"
+                class="px-12 py-4 bg-black text-white hover:bg-gray-800 transition-colors tracking-wider text-sm"
+              >
+                SEND MESSAGE
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div id="contact-success" class="hidden text-left py-12" role="status" aria-live="polite">
+          <p class="text-2xl text-black mb-4">Thank you for reaching out</p>
+          <p class="text-gray-600">I&rsquo;ll get back to you soon.</p>
+        </div>
+      </div>
+
+      <div class="relative h-96 md:h-[500px] w-full md:col-span-2">
+        <img
+          src="/images/welcome.jpg"
+          alt="Celeste yoga pose"
+          class="w-full h-full object-cover object-bottom opacity-80"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,38 +1,21 @@
-# celeste-yoga
+# Celeste Yoga
 
-Static site for Celeste Yoga — Rocket™, Ashtanga and Vinyasa classes in Newcastle.
+Marketing site for [celesteyoga.co.uk](https://celesteyoga.co.uk), built with [Astro](https://astro.build) and Tailwind CSS.
 
-## Docker
-
-Requires [Docker Desktop](https://www.docker.com/products/docker-desktop/) or Docker Engine with Compose v2.
-
-### Local preview
-
-Build and serve the site at http://localhost:8080:
+## Develop
 
 ```bash
-docker compose up --build
+pnpm install
+pnpm dev
 ```
 
-The `images/` directory must be present before building (it is referenced by `index.html`).
-
-### Live edit mode
-
-Mount the project directory into nginx so HTML, JS, and image changes appear without rebuilding:
+## Build
 
 ```bash
-docker compose --profile dev-live up
+pnpm build
+pnpm preview
 ```
 
-### Production
+## Deploy
 
-Build and run the image directly:
-
-```bash
-docker build -t celeste-yoga .
-docker run -p 80:80 celeste-yoga
-```
-
-Terminate HTTPS at your reverse proxy or load balancer in production; the container serves HTTP on port 80.
-
-The contact form posts to [Formspree](https://formspree.io) and works from localhost during local preview.
+Pushes to `main` build and deploy via GitHub Actions to GitHub Pages. In the repo settings, set **Pages → Source** to **GitHub Actions**.

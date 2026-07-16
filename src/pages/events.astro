@@ -2,6 +2,7 @@
 import { Picture } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import HeroPreload from '../components/HeroPreload.astro';
 import aboutImage from '../assets/images/about.jpg';
 import extraImage from '../assets/images/extra.jpg';
 import welcomeImage from '../assets/images/welcome.jpg';
@@ -11,6 +12,7 @@ import welcomeImage from '../assets/images/welcome.jpg';
   title="Events — Celeste Yoga"
   description="Workshops, retreats and special events with Celeste Yoga in Newcastle."
 >
+  <HeroPreload slot="head" />
   <Hero id="events" tagline="Events" />
 
   <section class="py-24 reveal">

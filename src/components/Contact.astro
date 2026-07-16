@@ -1,4 +1,6 @@
 ---
+import { Picture } from 'astro:assets';
+import welcomeImage from '../assets/images/welcome.jpg';
 ---
 
 <section id="contact" class="py-16 md:py-20 bg-gray-50 reveal">
@@ -8,25 +10,6 @@
     <div class="grid grid-cols-1 md:grid-cols-5 gap-10 md:gap-20 items-start">
       <div class="md:col-span-3">
         <div id="contact-form-block">
-          <a
-            href="#"
-            class="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors mb-5"
-            aria-label="Instagram"
-          >
-            <svg
-              class="w-5 h-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.8"
-              aria-hidden="true"
-            >
-              <rect x="3.5" y="3.5" width="17" height="17" rx="5"></rect>
-              <circle cx="12" cy="12" r="4"></circle>
-              <circle cx="17.6" cy="6.4" r="1"></circle>
-            </svg>
-            <span>Instagram</span>
-          </a>
           <p class="text-sm text-gray-500 mb-6 max-w-md leading-relaxed">
             Even yogis need a pause sometimes. I occasionally step away from Instagram to return to
             myself — thank you for understanding.
@@ -91,12 +74,15 @@
       </div>
 
       <div class="relative h-96 md:h-[500px] w-full md:col-span-2">
-        <img
-          src="/images/welcome.jpg"
+        <Picture
+          src={welcomeImage}
+          formats={['avif', 'webp']}
           alt="Celeste yoga pose"
-          class="w-full h-full object-cover object-bottom opacity-80"
+          widths={[400, 600, 800]}
+          sizes="(max-width: 767px) 100vw, 40vw"
+          pictureAttributes={{ class: 'block h-full w-full' }}
+          class="h-full w-full object-cover object-bottom opacity-80"
           loading="lazy"
-          decoding="async"
         />
       </div>
     </div>

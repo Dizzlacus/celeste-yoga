@@ -1,4 +1,6 @@
 ---
+import { Picture } from 'astro:assets';
+import extraImage from '../assets/images/extra.jpg';
 ---
 
 <section id="welcome" class="py-24 reveal">
@@ -20,12 +22,15 @@
         </div>
       </div>
       <div class="relative h-96 md:h-[500px] w-full md:col-span-2">
-        <img
-          src="/images/extra.jpg"
+        <Picture
+          src={extraImage}
+          formats={['avif', 'webp']}
           alt="Celeste — yoga practice"
-          class="w-full h-full object-cover object-bottom opacity-80"
+          widths={[400, 600, 800]}
+          sizes="(max-width: 767px) 100vw, 40vw"
+          pictureAttributes={{ class: 'block h-full w-full' }}
+          class="h-full w-full object-cover object-bottom opacity-80"
           loading="lazy"
-          decoding="async"
         />
       </div>
     </div>

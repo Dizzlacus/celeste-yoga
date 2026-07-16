@@ -77,17 +77,17 @@
   padding-top: 1.25rem;
 }
 @media (min-width: 768px) {
-  #home {
+  .page-hero {
     min-height: 0;
     max-height: 800px;
     height: 100vh;
   }
 }
 @media (max-width: 767px) {
-  #home picture img {
+  .page-hero picture img {
     object-position: 45% center;
   }
 }
-#home picture img {
+.page-hero picture img {
   will-change: transform;
 }

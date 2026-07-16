@@ -1,3 +1,6 @@
+import aboutImage from '../assets/images/about.jpg';
+import heroImage from '../assets/images/celeste-hero.jpg';
+
 export interface YogaClass {
   name: string;
   time: string;
@@ -8,6 +11,13 @@ export interface ClassDay {
   classes: YogaClass[];
 }
 
+export interface Review {
+  quote: string;
+  name: string;
+  role: string;
+  rating: number;
+}
+
 export const site = {
   name: 'Celeste Yoga',
   legalName: 'Celeste Yoga',
@@ -16,6 +26,7 @@ export const site = {
   description:
     'Celeste Yoga — Rocket™, Ashtanga and Vinyasa classes in Newcastle. An inclusive space to come as you are and do what you can.',
   founderName: 'Celeste',
+  founderImage: aboutImage.src,
   addressLocality: 'Newcastle',
   addressRegion: 'Tyne and Wear',
   addressCountry: 'GB',
@@ -23,11 +34,14 @@ export const site = {
   priceRange: '££',
   // Add social profile URLs here as they become available (Instagram, etc.).
   sameAs: [] as string[],
-  ogImage: '/images/celeste-hero.jpg',
+  ogImage: heroImage.src,
   locale: 'en_GB',
 } as const;
 
 export const yogaStyles = ['Rocket Yoga', 'Ashtanga Yoga', 'Vinyasa Yoga'];
+
+// Add student testimonials here to populate aggregateRating/review structured data.
+export const reviews: Review[] = [];
 
 export const classSchedule: ClassDay[] = [
   {

@@ -1,0 +1,40 @@
+---
+description: Astro image optimization — Picture/getImage, AVIF/WebP, LCP eager vs below-fold lazy loading, assets vs public
+globs: "**/*.{astro,ts},src/assets/**"
+alwaysApply: false
+---
+
+# Astro images
+
+Canonical examples: `@src/components/Hero.astro` (LCP via `getHeroImages`), `@src/components/About.astro` / `@src/components/Welcome.astro` (lazy `Picture`).
+
+## Where files live
+
+- Optimizable photos/content images: import from `src/assets/images/` and process with `astro:assets` (`Picture` or `getImage`).
+- Favicons, logos, decorative SVGs: may stay in `public/`.
+- Keep `sharp` installed for the default image service.
+
+## Picture / asset defaults
+
+- Prefer AVIF + WebP sources with an explicit fallback; set width/height to avoid CLS.
+- `alt` is required for content images. Decorative backgrounds/icons: `alt=""` plus `aria-hidden="true"` on the wrapper when appropriate.
+
+## Loading strategy
+
+- LCP / above-the-fold: `loading="eager"` + `fetchpriority="high"` (Hero may use `decoding="sync"` for the full-bleed background).
+- Below-fold: `loading="lazy"` + `decoding="async"` — never eager-load About/Welcome/Contact/gallery images.
+- Do **not** use Astro's `priority` prop unless intentionally matching its `decoding="sync"` behavior.
+
+```astro
+<!-- ❌ BAD: lazy LCP hero, or raw public/ photo without asset pipeline -->
+<img src="/img/hero.jpg" alt="…" />
+
+<!-- ✅ GOOD: below-fold -->
+<Picture
+  src={about}
+  formats={['avif', 'webp']}
+  alt="…"
+  loading="lazy"
+  decoding="async"
+/>
+```

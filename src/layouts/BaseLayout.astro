@@ -49,7 +49,7 @@ const structuredData = {
       email: site.email,
       description: site.description,
       image: imageURL.href,
-      logo: new URL('/favicon.svg', siteURL).href,
+      logo: new URL('/logo.svg', siteURL).href,
       priceRange: site.priceRange,
       areaServed: site.areaServed,
       address: {
@@ -129,7 +129,7 @@ const structuredData = {
     <meta name="theme-color" content="#ffffff" />
     <title>{title}</title>
     <link rel="canonical" href={canonicalURL.href} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
 
     <meta property="og:type" content={type} />

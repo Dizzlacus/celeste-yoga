@@ -33,8 +33,16 @@ const { mobileAvif, mobileWebp, desktopAvif, desktopWebp, desktopFallback } = aw
     </picture>
   </div>
   <div class="relative z-10 text-center px-6">
-    <h1 class="text-5xl sm:text-6xl md:text-8xl mb-8 md:mb-10 tracking-wider text-black font-bold">
-      Celeste Yoga
+    <h1 class="mb-8 md:mb-10">
+      <img
+        src="/logo.svg"
+        alt="Celeste Yoga"
+        width="608"
+        height="472"
+        class="mx-auto w-[min(70vw,14rem)] sm:w-[min(60vw,18rem)] md:w-[min(50vw,22rem)] h-auto"
+        decoding="sync"
+        fetchpriority="high"
+      />
     </h1>
     {
       tagline ? (

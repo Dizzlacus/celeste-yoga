@@ -37,7 +37,7 @@ const facts = [
 <section
   id={id}
   class:list={[
-    'on-dark bg-green-deep pt-24 md:pt-28',
+    'on-dark bg-green-deep pt-20 md:pt-28',
     compact ? 'pb-16 md:pb-20' : 'md:h-[100vh] md:max-h-[100vh] md:flex md:flex-col',
   ]}
 >
@@ -49,26 +49,28 @@ const facts = [
   >
     <div
       class:list={[
-        'relative rounded-[1.75rem] md:rounded-[2.5rem] overflow-hidden flex items-center isolate bg-green',
+        'relative rounded-[1.75rem] md:rounded-[2.5rem] overflow-hidden flex items-start md:items-center isolate bg-green',
         compact ? 'min-h-[36vh] md:min-h-[42vh]' : 'min-h-[62vh] md:flex-1 md:min-h-0',
       ]}
     >
       <div
-        class="hidden md:block absolute inset-y-0 right-0 w-[58%]"
+        class:list={[
+          'absolute inset-x-0 bottom-0 md:inset-x-auto md:inset-y-0 md:right-0 md:h-auto md:w-[58%]',
+          compact ? 'hidden md:block' : 'h-[56%]',
+        ]}
         aria-hidden="true"
       >
         <picture class="block w-full h-full">
-          <source media="(min-width: 768px)" srcset={avif.src} type="image/avif" />
-          <source media="(min-width: 768px)" srcset={webp.src} type="image/webp" />
-          <source media="(min-width: 768px)" srcset={fallback.src} />
+          <source srcset={avif.src} type="image/avif" />
+          <source srcset={webp.src} type="image/webp" />
           <img
-            src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA="
+            src={fallback.src}
             alt=""
             width={fallback.attributes.width}
             height={fallback.attributes.height}
             class:list={[
-              'hero-photo w-full h-full object-cover mix-blend-multiply contrast-105 brightness-125',
-              compact ? 'object-[center_70%]' : 'object-[center_75%]',
+              'hero-photo w-full h-full object-cover mix-blend-multiply contrast-105 brightness-110 md:brightness-125',
+              compact ? 'object-[center_48%] md:object-[center_70%]' : 'object-[center_58%] md:object-[center_75%]',
             ]}
             decoding="sync"
             loading="eager"
@@ -77,13 +79,12 @@ const facts = [
         </picture>
       </div>
 
-      <Crescent class="absolute -right-[12%] -bottom-[18%] w-1/2 text-cream/10" />
+      <Crescent class="hidden md:block absolute -right-[12%] -bottom-[18%] w-1/2 text-cream/10" />
 
       <div
-        class="absolute inset-0 bg-gradient-to-r from-green-deep/90 via-green-deep/70 via-[40%] to-transparent"
+        class="absolute inset-0 bg-gradient-to-b from-green-deep/90 via-green-deep/70 via-[40%] to-transparent md:bg-gradient-to-r"
         aria-hidden="true"
-      >
-      </div>
+      />
 
       <div class="relative z-10 px-7 sm:px-10 md:px-16 py-14 md:py-20 max-w-2xl">
         <div class="flex items-center gap-3 mb-6">
@@ -98,7 +99,7 @@ const facts = [
         <p
           class:list={[
             'text-base md:text-lg text-sage leading-relaxed max-w-md',
-            !compact && 'mb-10',
+            !compact && 'md:mb-10',
           ]}
         >
           {intro}
@@ -106,7 +107,7 @@ const facts = [
 
         {
           !compact && (
-            <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
+            <div class="hidden md:flex flex-wrap items-center gap-x-8 gap-y-4">
               <a
                 href={withBase('/#classes')}
                 class="inline-flex items-center gap-3 rounded-full bg-cream pl-7 pr-3 py-3 text-green-deep hover:bg-orange transition-colors"
@@ -143,17 +144,51 @@ const facts = [
 
     {
       !compact && (
-        <div class="flex flex-col sm:flex-row sm:items-baseline gap-8 md:gap-16 py-12 md:py-14">
-          {facts.map((fact) => (
-            <div class="flex items-baseline gap-3">
-              <span class="font-serif text-4xl md:text-5xl text-cream leading-none">
-                {fact.value}
-                <span class="text-orange">+</span>
-              </span>
-              <span class="text-sm text-sage leading-snug">{fact.label}</span>
+        <>
+          <div class="flex flex-col gap-8 py-8 md:block md:py-0">
+            <div class="flex md:hidden flex-wrap items-center gap-x-6 gap-y-3">
+              <a
+                href={withBase('/#classes')}
+                class="inline-flex items-center gap-2 rounded-full bg-cream pl-4 pr-1.5 py-1.5 text-sm text-green-deep hover:bg-orange transition-colors"
+              >
+                See class times
+                <span
+                  class="flex items-center justify-center w-7 h-7 rounded-full bg-green-deep text-cream"
+                  aria-hidden="true"
+                >
+                  <svg
+                    class="w-3.5 h-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+              </a>
+              {currentEvents.length > 0 && (
+                <a
+                  href={withBase('/events')}
+                  class="text-sm text-cream underline underline-offset-4 hover:text-orange hover:no-underline transition-all"
+                >
+                  Upcoming events
+                </a>
+              )}
             </div>
-          ))}
-        </div>
+            <div class="flex flex-col sm:flex-row sm:items-baseline gap-8 md:gap-16 md:py-14">
+              {facts.map((fact) => (
+                <div class="flex items-baseline gap-3">
+                  <span class="font-serif text-4xl md:text-5xl text-cream leading-none">
+                    {fact.value}
+                    <span class="text-orange">+</span>
+                  </span>
+                  <span class="text-sm text-sage leading-snug">{fact.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
       )
     }
   </div>

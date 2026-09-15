@@ -55,6 +55,7 @@
   overflow: hidden;
   max-height: 0;
   opacity: 0;
+  border-top-width: 0;
   transition:
     max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
     opacity 0.2s ease;
@@ -62,6 +63,7 @@
 #nav-mobile-panel.is-open {
   max-height: 420px;
   opacity: 1;
+  border-top-width: 1px;
 }
 #icon-hamburger,
 #icon-close {
@@ -81,11 +83,16 @@
   pointer-events: none;
 }
 /* The hero photo is a multiply layer on the green card, so its edge has to
-   dissolve into the base instead of stopping on a straight line. Desktop only
-   — mobile has no photo.
+   dissolve into the base instead of stopping on a straight line. Mobile fades
+   downward from a bottom-anchored panel so the headline stays on solid green;
+   desktop fades leftward from the right-anchored panel.
    Must sit on the <img> itself, not its wrapper: a mask isolates its element's
    group, so masking an ancestor would leave mix-blend-multiply with nothing but
    transparency to blend against and the photo would render untinted. */
+.hero-photo {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 58%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 58%);
+}
 @media (min-width: 768px) {
   .hero-photo {
     -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 30%);

@@ -1,0 +1,68 @@
+---
+import Placeholder from './Placeholder.astro';
+import Crescent from './Crescent.astro';
+import { featuredEvent } from '../data/site';
+
+const details = [
+  { label: 'When', value: `${featuredEvent.date}, ${featuredEvent.time}` },
+  { label: 'Where', value: featuredEvent.location },
+  { label: 'Cost', value: featuredEvent.cost },
+];
+---
+
+<section id="community" class="on-dark bg-green-deep py-24 md:py-28 reveal">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <Crescent bold class="w-5 text-orange shrink-0" />
+          <p class="text-sm tracking-widest uppercase text-sage">Our community</p>
+        </div>
+
+        <h2 class="font-serif text-4xl md:text-6xl leading-[1.05] text-cream mb-6">
+          Move &amp; Mingle
+        </h2>
+
+        <div class="space-y-5 text-sage leading-relaxed max-w-lg">
+          <p>
+            Practice is better shared. Move &amp; Mingle is a balanced Yoga practice that filters
+            into a social, so we can wind down together and you can meet the people you have been
+            breathing alongside. Come on your own or bring someone — either way you will not be a
+            stranger for long.
+          </p>
+          <p>We team up with local businesses for tasty goodies at every event.</p>
+        </div>
+
+        <dl class="mt-9 space-y-3 border-t border-sage/25 pt-7">
+          {
+            details.map((detail) => (
+              <div class="flex flex-wrap gap-x-3 text-cream">
+                <dt class="text-sage w-16 shrink-0">{detail.label}</dt>
+                <dd>{detail.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <a
+            href={featuredEvent.bookingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block rounded-full bg-orange px-8 py-3.5 text-ink hover:bg-cream transition-colors"
+          >
+            Book your place
+          </a>
+          <a
+            href="/events"
+            class="text-cream underline underline-offset-4 hover:text-orange hover:no-underline transition-all"
+          >
+            See all upcoming events
+          </a>
+        </div>
+      </div>
+
+      <Placeholder tone="green" class="relative w-full h-80 md:h-[34rem] rounded-media" />
+    </div>
+  </div>
+</section>

@@ -1,74 +1,125 @@
 ---
-import { getHeroImages } from '../utils/heroImages';
+import Placeholder from './Placeholder.astro';
+import Crescent from './Crescent.astro';
+import { classSchedule, yogaStyles } from '../data/site';
 
 interface Props {
   id?: string;
-  tagline?: string;
+  eyebrow?: string;
+  title?: string;
+  intro?: string;
+  /** Interior-page header: shorter panel, no stats bar and no calls to action,
+   *  since interior pages lead straight into their own content. */
+  compact?: boolean;
 }
 
-const { id = 'home', tagline } = Astro.props;
-const { mobileAvif, mobileWebp, desktopAvif, desktopWebp, desktopFallback } = await getHeroImages();
+const {
+  id = 'home',
+  eyebrow = 'Yoga in Newcastle',
+  title = 'Come as you are, do what you can.',
+  intro = 'Rocket™, Ashtanga and Vinyasa with Celeste — an inclusive space to move, breathe and belong.',
+  compact = false,
+} = Astro.props;
+
+const weeklyClasses = classSchedule.reduce((total, day) => total + day.classes.length, 0);
+const studios = new Set(
+  classSchedule.flatMap((day) => day.classes.map((cls) => cls.name.split('@')[1]?.trim())).filter(Boolean)
+);
+
+const facts = [
+  { value: String(weeklyClasses), label: 'classes every week' },
+  { value: String(studios.size), label: 'studios across Newcastle' },
+  { value: String(yogaStyles.length), label: 'styles, all levels welcome' },
+];
 ---
 
 <section
   id={id}
-  class="page-hero relative min-h-screen flex items-center justify-center pt-16"
+  class:list={['on-dark bg-green-deep pt-24 md:pt-28', compact && 'pb-16 md:pb-20']}
 >
-  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
-    <picture class="block w-full h-full">
-      <source media="(max-width: 767px)" srcset={mobileAvif.src} type="image/avif" />
-      <source media="(max-width: 767px)" srcset={mobileWebp.src} type="image/webp" />
-      <source media="(min-width: 768px)" srcset={desktopAvif.src} type="image/avif" />
-      <source media="(min-width: 768px)" srcset={desktopWebp.src} type="image/webp" />
-      <img
-        src={desktopFallback.src}
-        alt=""
-        width={desktopFallback.attributes.width}
-        height={desktopFallback.attributes.height}
-        class="w-full h-full object-cover opacity-60"
-        decoding="sync"
-        loading="eager"
-        fetchpriority="high"
-      />
-    </picture>
-  </div>
-  <div class="relative z-10 text-center px-6">
-    <h1 class="mb-8 md:mb-10">
-      <img
-        src="/logo.svg"
-        alt="Celeste Yoga"
-        width="608"
-        height="472"
-        class="mx-auto w-[min(70vw,14rem)] sm:w-[min(60vw,18rem)] md:w-[min(50vw,22rem)] h-auto"
-        decoding="sync"
-        fetchpriority="high"
-      />
-    </h1>
-    {
-      tagline ? (
-        <p class="text-xl sm:text-2xl md:text-[50px] text-black tracking-wide font-semibold">{tagline}</p>
-      ) : (
-        <div
-          class="flex flex-col md:flex-row md:flex-wrap items-center justify-center gap-y-2 md:gap-y-0 md:gap-x-4 text-lg md:text-2xl text-black tracking-wide"
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+    <div
+      class:list={[
+        'relative rounded-[1.75rem] md:rounded-[2.5rem] overflow-hidden flex items-center',
+        compact ? 'min-h-[36vh] md:min-h-[42vh]' : 'min-h-[62vh] md:min-h-[70vh]',
+      ]}
+    >
+      <Placeholder tone="green" class="absolute inset-0" />
+      {/* Tuned against the solid green placeholder, where the intro clears AA at
+          5.1:1. A bright photograph here drops it to ~3.1:1, so re-check the
+          scrim strength when real imagery replaces the placeholder. */}
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-green-deep/90 via-green-deep/70 to-transparent"
+        aria-hidden="true"
+      >
+      </div>
+
+      <div class="relative z-10 px-7 sm:px-10 md:px-16 py-14 md:py-20 max-w-2xl">
+        <div class="flex items-center gap-3 mb-6">
+          <Crescent bold class="w-5 text-orange shrink-0" />
+          <p class="text-sm tracking-widest uppercase text-sage">{eyebrow}</p>
+        </div>
+
+        <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl leading-[1.02] text-cream mb-6">
+          {title}
+        </h1>
+
+        <p
+          class:list={[
+            'text-base md:text-lg text-sage leading-relaxed max-w-md',
+            !compact && 'mb-10',
+          ]}
         >
-          <p>Yoga Teacher</p>
-          <span
-            class="hidden md:inline-block h-1.5 w-1.5 rounded-full bg-black"
-            aria-hidden="true"
-          ></span>
-          <p>
-            Rocket<sup class="text-[0.65em] -top-[0.15em]" aria-hidden="true">™</sup>
-          </p>
-          <span
-            class="hidden md:inline-block h-1.5 w-1.5 rounded-full bg-black"
-            aria-hidden="true"
-          ></span>
-          <p>Ashtanga</p>
-          <span
-            class="hidden md:inline-block h-1.5 w-1.5 rounded-full bg-black"
-            aria-hidden="true"
-          ></span>
-          <p>Vinyasa</p>
+          {intro}
+        </p>
+
+        {
+          !compact && (
+            <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
+              <a
+                href="/#classes"
+                class="group inline-flex items-center gap-3 rounded-full bg-cream pl-7 pr-3 py-3 text-green-deep hover:bg-orange transition-colors"
+              >
+                See class times
+                <span
+                  class="flex items-center justify-center w-8 h-8 rounded-full bg-green-deep text-cream transition-transform group-hover:translate-x-0.5"
+                  aria-hidden="true"
+                >
+                  <svg
+                    class="w-4 h-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6" />
+                  </svg>
+                </span>
+              </a>
+              <a
+                href="/events"
+                class="text-cream underline underline-offset-4 hover:text-orange hover:no-underline transition-all"
+              >
+                Upcoming events
+              </a>
+            </div>
+          )
+        }
+      </div>
+    </div>
+
+    {
+      !compact && (
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-12 py-12 md:py-14 px-2 md:px-6">
+          {facts.map((fact) => (
+            <div class="flex items-baseline gap-3">
+              <span class="font-serif text-4xl md:text-5xl text-cream leading-none">
+                {fact.value}
+                <span class="text-orange">+</span>
+              </span>
+              <span class="text-sm text-sage leading-snug">{fact.label}</span>
+            </div>
+          ))}
         </div>
       )
     }

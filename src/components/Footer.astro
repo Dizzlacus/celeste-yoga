@@ -1,18 +1,19 @@
 ---
+import Crescent from './Crescent.astro';
 import { site } from '../data/site';
 ---
 
-<footer class="py-16 px-6 md:px-12 bg-black">
+<footer class="on-dark bg-green-deep py-16 md:py-20 px-6 md:px-12">
   <div class="max-w-7xl mx-auto text-center">
-    <p class="text-gray-400 mb-6 text-sm tracking-wide">GET IN TOUCH</p>
-    <div class="flex flex-col gap-3 justify-center items-center mb-10">
-      <a
-        href={`mailto:${site.email}`}
-        class="text-gray-300 hover:text-white transition-colors">{site.email}</a
-      >
-    </div>
-    <p class="text-xs text-gray-500 tracking-wide mb-6">
-      © <span id="footer-year"></span> CELESTE YOGA. ALL RIGHTS RESERVED.
+    <Crescent bold class="mx-auto w-10 text-orange mb-6" />
+    <p class="font-serif text-5xl text-cream mb-8">Alma</p>
+    <p class="text-sm tracking-widest uppercase text-sage mb-4">Get in touch</p>
+    <a
+      href={`mailto:${site.email}`}
+      class="inline-block text-cream hover:text-orange transition-colors mb-10">{site.email}</a
+    >
+    <p class="text-xs text-sage/80 tracking-wide">
+      © <span id="footer-year"></span> Alma. All rights reserved.
     </p>
   </div>
 </footer>

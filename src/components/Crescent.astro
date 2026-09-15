@@ -1,0 +1,14 @@
+---
+import { crescentPath, crescentBoldPath, crescentViewBox } from '../utils/crescent';
+
+interface Props {
+  class?: string;
+  bold?: boolean;
+}
+
+const { class: className = '', bold = false } = Astro.props;
+---
+
+<svg viewBox={crescentViewBox} class={className} aria-hidden="true" focusable="false">
+  <path d={bold ? crescentBoldPath : crescentPath} fill-rule="evenodd" fill="currentColor"></path>
+</svg>

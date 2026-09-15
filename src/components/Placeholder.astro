@@ -1,0 +1,27 @@
+---
+import Crescent from './Crescent.astro';
+
+// Stands in for photography that has not been shot yet. Swap the whole element
+// for an <Image>/<Picture> when real assets arrive; the sizing classes are
+// passed in by the caller so the surrounding layout will not change.
+// Callers own positioning (`relative` or `absolute inset-0`) so the two never
+// collide in the class list.
+interface Props {
+  class?: string;
+  tone?: 'green' | 'dark' | 'sage';
+}
+
+const { class: className = '', tone = 'green' } = Astro.props;
+
+const tones = {
+  green: 'bg-green',
+  dark: 'bg-green-dark',
+  sage: 'bg-sage',
+};
+
+const crescentTone = tone === 'sage' ? 'text-green/25' : 'text-cream/15';
+---
+
+<div class={`overflow-hidden ${tones[tone]} ${className}`} aria-hidden="true">
+  <Crescent class={`absolute -right-[12%] -bottom-[18%] w-1/2 ${crescentTone}`} />
+</div>

@@ -2,6 +2,32 @@
 
 @theme inline {
   --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant);
+}
+
+@theme {
+  /* Brand core — sampled from the Alma logos. Orange is 2.04:1 on paper:
+     surface only, never text. Use --color-clay when orange must carry text. */
+  --color-green: #3f7537;
+  --color-orange: #fea026;
+  --color-cream: #fff4a8;
+  --color-sage: #abb18b;
+
+  /* Derived from the two brand hues rather than introducing new ones */
+  --color-green-deep: #1c2a19;
+  --color-green-dark: #23401e;
+  --color-green-wash: #edf1dd;
+  --color-clay: #8c5815;
+
+  /* Warm neutrals — replace Tailwind's cool gray ladder, which fights both hues */
+  --color-paper: #fbf8f2;
+  --color-ink: #2a2521;
+  --color-body: #5a5148;
+  --color-muted: #736b60;
+  --color-border: #e7e0d5;
+
+  --radius-card: 1rem;
+  --radius-media: 1.5rem;
 }
 
 .reveal {
@@ -15,6 +41,16 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+:where(a, button, input, textarea, summary):focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.on-dark :where(a, button):focus-visible {
+  outline-color: var(--color-cream);
+}
+
 #nav-mobile-panel {
   overflow: hidden;
   max-height: 0;
@@ -24,7 +60,7 @@
     opacity 0.2s ease;
 }
 #nav-mobile-panel.is-open {
-  max-height: 360px;
+  max-height: 420px;
   opacity: 1;
 }
 #icon-hamburger,
@@ -50,31 +86,10 @@
 #contact-form textarea:-webkit-autofill,
 #contact-form textarea:-webkit-autofill:hover,
 #contact-form textarea:-webkit-autofill:focus {
-  -webkit-text-fill-color: #000;
-  caret-color: #000;
+  -webkit-text-fill-color: var(--color-ink);
+  caret-color: var(--color-ink);
   transition: background-color 99999s ease-out;
-  box-shadow: 0 0 0 1000px #f9fafb inset;
-}
-/* Wednesday card grows when expanded; other days stay uniform min height */
-#weds-card.weds-open {
-  min-height: unset;
-}
-#weds-panel {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  border-top-width: 0;
-  margin-top: 0;
-  padding-top: 0;
-  transition:
-    max-height 300ms ease,
-    opacity 220ms ease;
-}
-#weds-panel.is-open {
-  opacity: 1;
-  border-top: 1px solid #f3f4f6;
-  margin-top: 0.5rem;
-  padding-top: 1.25rem;
+  box-shadow: 0 0 0 1000px var(--color-paper) inset;
 }
 @media (min-width: 768px) {
   .page-hero {

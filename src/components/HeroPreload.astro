@@ -1,20 +1,13 @@
 ---
 import { getHeroImages } from '../utils/heroImages';
 
-const { mobileAvif, desktopAvif } = await getHeroImages();
+const { avif } = await getHeroImages();
 ---
 
 <link
   rel="preload"
   as="image"
   type="image/avif"
-  href={mobileAvif.src}
-  media="(max-width: 767px)"
-/>
-<link
-  rel="preload"
-  as="image"
-  type="image/avif"
-  href={desktopAvif.src}
+  href={avif.src}
   media="(min-width: 768px)"
 />

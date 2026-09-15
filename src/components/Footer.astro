@@ -1,18 +1,41 @@
 ---
 import { site } from '../data/site';
+import { withBase } from '../utils/path';
+import InstagramIcon from './InstagramIcon.astro';
 ---
 
-<footer class="py-16 px-6 md:px-12 bg-black">
+<footer class="on-dark bg-green-deep py-16 md:py-20 px-6 md:px-12">
   <div class="max-w-7xl mx-auto text-center">
-    <p class="text-gray-400 mb-6 text-sm tracking-wide">GET IN TOUCH</p>
-    <div class="flex flex-col gap-3 justify-center items-center mb-10">
+    <img
+      src={withBase('/logo.svg')}
+      alt="Alma Yoga"
+      width="243"
+      height="189"
+      class="mx-auto h-24 md:h-28 w-auto mb-8"
+    />
+    <p class="text-sm tracking-widest uppercase text-sage mb-4">Get in touch</p>
+    <a
+      href={`mailto:${site.email}`}
+      class="inline-block text-cream hover:text-orange transition-colors">{site.email}</a
+    >
+    <div class="flex items-center justify-center gap-5 mt-6 mb-10">
       <a
-        href={`mailto:${site.email}`}
-        class="text-gray-300 hover:text-white transition-colors">{site.email}</a
+        href={site.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-cream hover:text-orange transition-colors"
+        aria-label={`Alma Yoga on Instagram, @${site.instagramHandle}`}
       >
+        <InstagramIcon class="w-6 h-6" />
+      </a>
     </div>
-    <p class="text-xs text-gray-500 tracking-wide mb-6">
-      © <span id="footer-year"></span> CELESTE YOGA. ALL RIGHTS RESERVED.
+    <p class="text-xs text-sage/80 tracking-wide mb-3">
+      © <span id="footer-year"></span> Alma. All rights reserved.
     </p>
+    <a
+      href={withBase('/privacy')}
+      class="text-xs text-sage/80 hover:text-cream transition-colors underline underline-offset-4"
+      >Privacy policy</a
+    >
   </div>
 </footer>

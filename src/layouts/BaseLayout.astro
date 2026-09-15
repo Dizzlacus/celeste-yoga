@@ -4,6 +4,7 @@ import '../styles/global.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import { site, yogaStyles, reviews } from '../data/site';
+import { withBase } from '../utils/path';
 
 interface Props {
   title?: string;
@@ -28,6 +29,8 @@ const {
 const siteURL = Astro.site ?? new URL(site.url);
 const canonicalURL = new URL(Astro.url.pathname, siteURL);
 const imageURL = new URL(image, siteURL);
+const logoURL = new URL(withBase('/logo.png'), siteURL);
+const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
 
 const businessId = `${site.url}/#business`;
 const websiteId = `${site.url}/#website`;
@@ -49,7 +52,7 @@ const structuredData = {
       email: site.email,
       description: site.description,
       image: imageURL.href,
-      logo: new URL('/logo.svg', siteURL).href,
+      logo: logoURL.href,
       priceRange: site.priceRange,
       areaServed: site.areaServed,
       address: {
@@ -112,6 +115,7 @@ const structuredData = {
       image: new URL(site.founderImage, siteURL).href,
       worksFor: { '@id': businessId },
       url: site.url,
+      ...(site.sameAs.length ? { sameAs: site.sameAs } : {}),
     },
   ],
 };
@@ -124,15 +128,16 @@ const structuredData = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
     <meta name="author" content={site.name} />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#3f7537" />
     <title>{title}</title>
     <link rel="canonical" href={canonicalURL.href} />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={withBase('/favicon-96.png')} type="image/png" sizes="96x96" />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
+    <link rel="sitemap" href={withBase('/sitemap-index.xml')} />
 
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={site.name} />
@@ -150,10 +155,11 @@ const structuredData = {
     <meta name="twitter:image" content={imageURL.href} />
 
     <Font cssVariable="--font-inter" preload />
+    <Font cssVariable="--font-cormorant" preload />
     <slot name="head" />
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
   </head>
-  <body class="min-h-screen bg-white text-black antialiased">
+  <body class="min-h-screen bg-paper text-ink antialiased">
     <Nav showMobileNav={showMobileNav} sticky={stickyNav} homeLinks={homeLinks} />
     <slot />
     <Footer />

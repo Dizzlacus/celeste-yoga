@@ -1,0 +1,83 @@
+---
+import Photo from './Photo.astro';
+import Crescent from './Crescent.astro';
+import { featuredEvent } from '../data/site';
+import { withBase } from '../utils/path';
+import welcomeImage from '../assets/images/welcome.jpg';
+
+const event = featuredEvent;
+const details = event
+  ? [
+      { label: 'When', value: `${event.date}, ${event.time}` },
+      { label: 'Where', value: event.location },
+      { label: 'Cost', value: event.cost },
+    ]
+  : [];
+---
+
+{
+  event && (
+<section id="community" class="on-dark bg-green-deep py-24 md:py-28 reveal" data-starts-on={event.startsOn}>
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <Crescent bold class="w-6 text-orange shrink-0" />
+          <p class="text-sm tracking-widest uppercase text-sage">Our community</p>
+        </div>
+
+        <h2 class="font-serif text-4xl md:text-6xl leading-[1.05] text-cream mb-6">
+          Move &amp; Mingle
+        </h2>
+
+        <div class="space-y-5 text-sage leading-relaxed max-w-lg">
+          <p>
+            Practice is better shared. Move &amp; Mingle is a balanced Yoga practice that filters
+            into a social, so we can wind down together and you can meet the people you have been
+            breathing alongside. Come on your own or bring someone — either way you will not be a
+            stranger for long.
+          </p>
+          <p>We team up with local businesses for tasty goodies at every event.</p>
+        </div>
+
+        <dl class="mt-9 space-y-3 border-t border-sage/25 pt-7">
+          {
+            details.map((detail) => (
+              <div class="flex flex-wrap gap-x-3 text-cream">
+                <dt class="text-sage w-16 shrink-0">{detail.label}</dt>
+                <dd>{detail.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+
+        <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <a
+            href={event.bookingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block rounded-full bg-orange px-8 py-3.5 text-ink hover:bg-cream transition-colors"
+          >
+            Book your place
+          </a>
+          <a
+            href={withBase('/events')}
+            class="text-cream underline underline-offset-4 hover:text-orange hover:no-underline transition-all"
+          >
+            See all upcoming events
+          </a>
+        </div>
+      </div>
+
+      <Photo
+        src={welcomeImage}
+        alt="Celeste in a triangle pose"
+        class="relative w-full h-80 md:h-[34rem] rounded-media"
+        imgClass="object-[center_30%]"
+        sizes="(max-width: 767px) 100vw, 50vw"
+      />
+    </div>
+  </div>
+</section>
+  )
+}

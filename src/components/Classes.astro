@@ -2,27 +2,37 @@
 import { classSchedule } from '../data/site';
 
 const cardClass =
-  'bg-white p-6 md:p-8 border border-gray-200 shadow-sm rounded-sm w-full min-h-[15rem] md:min-h-[16rem] flex flex-col';
+  'bg-paper p-7 md:p-8 rounded-card border border-border w-full flex flex-col min-h-[14rem]';
+
+const dayNames: Record<string, string> = {
+  Tues: 'Tuesday',
+  Weds: 'Wednesday',
+  Thurs: 'Thursday',
+  Fri: 'Friday',
+  Sat: 'Saturday',
+  Sun: 'Sunday',
+};
 ---
 
-<section id="classes" class="py-24 bg-gray-50 reveal">
-  <div class="max-w-7xl mx-auto px-6 md:px-12">
-    <h2 class="text-4xl md:text-5xl mb-12 md:mb-16 text-center text-black font-semibold">Classes</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-start">
+<section id="classes" class="bg-paper py-24 md:py-28 reveal">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="max-w-2xl mb-14 md:mb-16">
+      <p class="text-sm font-semibold tracking-widest uppercase text-green mb-4">Weekly schedule</p>
+      <h2 class="font-serif text-4xl md:text-6xl leading-[1.05] text-green-dark">Classes</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 items-start">
       {
         classSchedule.map((entry) => (
           <article class={cardClass}>
-            <h3 class="text-sm font-semibold tracking-wide text-black mb-5">{entry.day}</h3>
-            <div class="flex flex-1 flex-col min-h-0">
-              <div class="space-y-4 shrink-0">
-                {entry.classes.map((cls) => (
-                  <div class="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
-                    <p class="text-gray-800 leading-relaxed">{cls.name}</p>
-                    <p class="text-gray-600 text-sm mt-1.5">{cls.time}</p>
-                  </div>
-                ))}
-              </div>
-              <div class="flex-1 min-h-[1px]" aria-hidden="true" />
+            <h3 class="font-serif text-2xl text-green-dark mb-5">{dayNames[entry.day]}</h3>
+            <div class="space-y-4">
+              {entry.classes.map((cls) => (
+                <div class="border-b border-border pb-4 last:border-0 last:pb-0">
+                  <p class="text-ink leading-relaxed">{cls.name}</p>
+                  <p class="text-muted text-sm mt-1">{cls.time}</p>
+                </div>
+              ))}
             </div>
           </article>
         ))

@@ -1,8 +1,24 @@
-// Celeste Hay — global scripts
+// Alma — global scripts
 
 (function () {
   const yearEl = document.getElementById("footer-year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+})();
+
+(function () {
+  const today = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/London",
+  }).format(new Date());
+
+  document.querySelectorAll("[data-starts-on]").forEach((el) => {
+    const startsOn = el.getAttribute("data-starts-on");
+    if (startsOn && startsOn < today) el.remove();
+  });
+
+  const empty = document.getElementById("events-empty");
+  if (empty && !document.querySelector("section[data-starts-on]")) {
+    empty.hidden = false;
+  }
 })();
 
 (function () {
@@ -57,18 +73,65 @@
   const form = document.getElementById("contact-form");
   const block = document.getElementById("contact-form-block");
   const successEl = document.getElementById("contact-success");
+  const errorEl = document.getElementById("contact-form-error");
   if (!form || !block || !successEl) return;
+
+  function showError(message) {
+    if (!errorEl) return;
+    errorEl.textContent = message;
+    errorEl.classList.remove("hidden");
+  }
+
+  function clearError() {
+    if (!errorEl) return;
+    errorEl.textContent = "";
+    errorEl.classList.add("hidden");
+  }
+
+  function setSuccessCopy(kind) {
+    const titleEl = document.getElementById("contact-success-title");
+    const bodyEl = document.getElementById("contact-success-body");
+    if (!titleEl || !bodyEl) return;
+    titleEl.textContent = successEl.getAttribute("data-title-" + kind) || "Thank you";
+    bodyEl.textContent = successEl.getAttribute("data-body-" + kind) || "";
+  }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const endpoint = form.getAttribute("action");
     if (!endpoint) return;
+    clearError();
+
     const honeypot = form.querySelector('input[name="website"]');
     if (honeypot && honeypot.value.trim() !== "") {
       // Bots often fill hidden fields; silently drop.
       form.reset();
       return;
     }
+
+    const message = form.querySelector("#message");
+    const newsletter = form.querySelector("#newsletter");
+    const subject = form.querySelector("#contact-subject");
+    const hasMessage = Boolean(message && message.value.trim());
+    const wantsNewsletter = Boolean(newsletter && newsletter.checked);
+
+    if (!hasMessage && !wantsNewsletter) {
+      showError("Add a message or tick the newsletter box.");
+      return;
+    }
+
+    if (subject) {
+      if (hasMessage && wantsNewsletter) {
+        subject.value = "Alma website enquiry + newsletter";
+      } else if (wantsNewsletter) {
+        subject.value = "Alma newsletter signup";
+      } else {
+        subject.value = "Alma website enquiry";
+      }
+    }
+
+    const successKind =
+      hasMessage && wantsNewsletter ? "both" : wantsNewsletter ? "newsletter" : "message";
 
     try {
       const response = await fetch(endpoint, {
@@ -81,15 +144,16 @@
 
       if (!response.ok) throw new Error("Failed to send form");
 
+      setSuccessCopy(successKind);
       block.classList.add("hidden");
       successEl.classList.remove("hidden");
       form.reset();
       window.setTimeout(() => {
         successEl.classList.add("hidden");
         block.classList.remove("hidden");
-      }, 3000);
+      }, 5000);
     } catch (error) {
-      // Keep current UX simple and avoid a blocking alert.
+      showError("Something went wrong. Please try again or email me directly.");
       console.error(error);
     }
   });
@@ -103,18 +167,27 @@
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (reduceMotion.matches) return;
 
+  const desktop = window.matchMedia("(min-width: 768px)");
   let ticking = false;
 
   function updateHeroParallax() {
+    if (!desktop.matches) {
+      heroImage.style.transform = "";
+      ticking = false;
+      return;
+    }
+
     const sectionTop = hero.offsetTop;
     const sectionHeight = hero.offsetHeight;
     const delta = window.scrollY - sectionTop;
 
     // Keep the movement subtle and only while the hero is in view.
+    // Scale from the bottom so translateY never uncovers the card above the photo.
     const inViewDelta = Math.max(0, Math.min(delta, sectionHeight));
     const offset = Math.min(inViewDelta * 0.18, 72);
 
-    heroImage.style.transform = "translate3d(0," + offset.toFixed(2) + "px,0)";
+    heroImage.style.transform =
+      "translate3d(0," + offset.toFixed(2) + "px,0) scale(1.22)";
     ticking = false;
   }
 

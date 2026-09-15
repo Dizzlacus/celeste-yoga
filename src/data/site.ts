@@ -19,12 +19,16 @@ export interface Review {
 }
 
 export const site = {
-  name: 'Celeste Yoga',
-  legalName: 'Celeste Yoga',
+  name: 'Alma',
+  legalName: 'Alma',
+  // Domain and email still point at the previous brand until the new ones are
+  // registered; update here and in public/CNAME together.
   url: 'https://celesteyoga.co.uk',
-  email: 'Celestehyoga@gmail.com',
+  email: 'celestehyoga@gmail.com',
+  instagram: 'https://www.instagram.com/alma.yogancl/',
+  instagramHandle: 'alma.yogancl',
   description:
-    'Celeste Yoga — Rocket™, Ashtanga and Vinyasa classes in Newcastle. An inclusive space to come as you are and do what you can.',
+    'Alma — Rocket™, Ashtanga and Vinyasa yoga with Celeste in Newcastle. An inclusive space to come as you are and do what you can.',
   founderName: 'Celeste',
   founderImage: aboutImage.src,
   addressLocality: 'Newcastle',
@@ -32,8 +36,8 @@ export const site = {
   addressCountry: 'GB',
   areaServed: 'Newcastle upon Tyne',
   priceRange: '££',
-  // Add social profile URLs here as they become available (Instagram, etc.).
-  sameAs: [] as string[],
+  sameAs: ['https://www.instagram.com/alma.yogancl/'],
+  privacyLastUpdated: '15 September 2026',
   ogImage: heroImage.src,
   locale: 'en_GB',
 } as const;
@@ -47,6 +51,8 @@ export interface UpcomingEvent {
   title: string;
   description: string[];
   date: string;
+  /** Calendar date as YYYY-MM-DD in Europe/London. Events stay visible on that day. */
+  startsOn: string;
   time: string;
   location: string;
   cost: string;
@@ -61,6 +67,7 @@ export const upcomingEvents: UpcomingEvent[] = [
       'Acknowledging the Autumn Equinox with this mini evening retreat where we will explore a well-balanced practice, guided journaling and breath work before settling into a cosy extended Savasana. Spaces are limited and all materials provided — however if you wish to bring your own journal and mat please feel free.',
     ],
     date: 'Sunday 20th September',
+    startsOn: '2026-09-20',
     time: '5–7pm',
     location: 'Modern Yoga, Gosforth',
     cost: '£25.00pp',
@@ -74,6 +81,7 @@ export const upcomingEvents: UpcomingEvent[] = [
       'These events will run bi-monthly / monthly — please keep an eye on the schedule as locations and themes will change.',
     ],
     date: 'Saturday 10th October',
+    startsOn: '2026-10-10',
     time: '11.15am – 1.15pm',
     location: 'Modern Yoga, Gosforth',
     cost: '£20.00pp',
@@ -83,9 +91,10 @@ export const upcomingEvents: UpcomingEvent[] = [
   {
     title: 'Winter Wind Down Retreat Day',
     description: [
-      'Back for a 2nd year, this wind down for winter is a full day retreat and will include two contrasting practices, guest teachers, a soundbath and includes lunch, snacks and all refreshments.',
+      'Back for a 2nd year, this wind down for winter is a full day retreat and will include two contrasting practices, guest teachers, a soundbath, lunch, snacks and all refreshments.',
     ],
     date: 'Saturday 28th November',
+    startsOn: '2026-11-28',
     time: '10am–4pm',
     location: 'Gosforth Garden Village',
     cost: '£75.00',
@@ -93,6 +102,21 @@ export const upcomingEvents: UpcomingEvent[] = [
     imageAlt: 'Full day winter yoga retreat',
   },
 ];
+
+export function londonToday(): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/London' }).format(new Date());
+}
+
+export function isCurrentOrUpcoming(event: UpcomingEvent): boolean {
+  return event.startsOn >= londonToday();
+}
+
+export const currentEvents = upcomingEvents
+  .filter(isCurrentOrUpcoming)
+  .sort((a, b) => a.startsOn.localeCompare(b.startsOn));
+
+// Homepage community section — only when Move & Mingle is today or still upcoming.
+export const featuredEvent = currentEvents.find((event) => event.title === 'Move & Mingle');
 
 export const classSchedule: ClassDay[] = [
   {

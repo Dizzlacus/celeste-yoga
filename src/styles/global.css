@@ -2,6 +2,32 @@
 
 @theme inline {
   --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant);
+}
+
+@theme {
+  /* Brand core — sampled from the Alma logos. Orange is 2.04:1 on paper:
+     surface only, never text. Use --color-clay when orange must carry text. */
+  --color-green: #3f7537;
+  --color-orange: #fea026;
+  --color-cream: #fff4a8;
+  --color-sage: #abb18b;
+
+  /* Derived from the two brand hues rather than introducing new ones */
+  --color-green-deep: #1c2a19;
+  --color-green-dark: #23401e;
+  --color-green-wash: #edf1dd;
+  --color-clay: #8c5815;
+
+  /* Warm neutrals — replace Tailwind's cool gray ladder, which fights both hues */
+  --color-paper: #fbf8f2;
+  --color-ink: #2a2521;
+  --color-body: #5a5148;
+  --color-muted: #736b60;
+  --color-border: #e7e0d5;
+
+  --radius-card: 1rem;
+  --radius-media: 1.5rem;
 }
 
 .reveal {
@@ -15,6 +41,16 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+:where(a, button, input, textarea, summary):focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.on-dark :where(a, button):focus-visible {
+  outline-color: var(--color-cream);
+}
+
 #nav-mobile-panel {
   overflow: hidden;
   max-height: 0;
@@ -24,7 +60,7 @@
     opacity 0.2s ease;
 }
 #nav-mobile-panel.is-open {
-  max-height: 360px;
+  max-height: 420px;
   opacity: 1;
 }
 #icon-hamburger,
@@ -44,29 +80,29 @@
   transform: rotate(-45deg) scale(0.7);
   pointer-events: none;
 }
+/* The hero photo is a multiply layer on the green card, so its edge has to
+   dissolve into the base instead of stopping on a straight line. Desktop only
+   — mobile has no photo.
+   Must sit on the <img> itself, not its wrapper: a mask isolates its element's
+   group, so masking an ancestor would leave mix-blend-multiply with nothing but
+   transparency to blend against and the photo would render untinted. */
+@media (min-width: 768px) {
+  .hero-photo {
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 30%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 30%);
+    transform-origin: center bottom;
+    will-change: transform;
+  }
+}
+
 #contact-form input:-webkit-autofill,
 #contact-form input:-webkit-autofill:hover,
 #contact-form input:-webkit-autofill:focus,
 #contact-form textarea:-webkit-autofill,
 #contact-form textarea:-webkit-autofill:hover,
 #contact-form textarea:-webkit-autofill:focus {
-  -webkit-text-fill-color: #000;
-  caret-color: #000;
+  -webkit-text-fill-color: var(--color-ink);
+  caret-color: var(--color-ink);
   transition: background-color 99999s ease-out;
-  box-shadow: 0 0 0 1000px #f9fafb inset;
-}
-@media (min-width: 768px) {
-  .page-hero {
-    min-height: 0;
-    max-height: 800px;
-    height: 100vh;
-  }
-}
-@media (max-width: 767px) {
-  .page-hero picture img {
-    object-position: 45% center;
-  }
-}
-.page-hero picture img {
-  will-change: transform;
+  box-shadow: 0 0 0 1000px var(--color-paper) inset;
 }

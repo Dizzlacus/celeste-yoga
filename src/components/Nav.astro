@@ -1,4 +1,7 @@
 ---
+import { featuredEvent } from '../data/site';
+import { withBase } from '../utils/path';
+
 interface Props {
   showMobileNav?: boolean;
   sticky?: boolean;
@@ -9,11 +12,13 @@ const { showMobileNav = true, sticky = true, homeLinks = true } = Astro.props;
 
 const links = homeLinks
   ? [
-      { href: '/#welcome', label: 'Welcome' },
-      { href: '/#classes', label: 'Classes' },
-      { href: '/#community', label: 'Community' },
-      { href: '/#about', label: 'About' },
-      { href: '/events', label: 'Events' },
+      { href: withBase('/#welcome'), label: 'Welcome' },
+      { href: withBase('/#classes'), label: 'Classes' },
+      ...(featuredEvent
+        ? [{ href: withBase('/#community'), label: 'Community', startsOn: featuredEvent.startsOn }]
+        : []),
+      { href: withBase('/#about'), label: 'About' },
+      { href: withBase('/events'), label: 'Events' },
     ]
   : [];
 ---
@@ -28,10 +33,17 @@ const links = homeLinks
   <div class="max-w-7xl mx-auto px-6 md:px-10 py-4">
     <div class="flex justify-between items-center gap-6">
       <a
-        href="/#home"
-        class="font-serif text-3xl md:text-[2rem] leading-none text-cream hover:text-orange transition-colors"
+        href={withBase('/#home')}
+        class="inline-flex items-center hover:opacity-80 transition-opacity"
+        aria-label="Alma Yoga home"
       >
-        Alma
+        <img
+          src={withBase('/logo.svg')}
+          alt="Alma Yoga"
+          width="152"
+          height="118"
+          class="h-12 md:h-14 w-auto"
+        />
       </a>
 
       {
@@ -41,12 +53,13 @@ const links = homeLinks
               <a
                 href={link.href}
                 class="text-sm tracking-wide text-sage hover:text-cream transition-colors"
+                data-starts-on={link.startsOn}
               >
                 {link.label}
               </a>
             ))}
             <a
-              href="/#contact"
+              href={withBase('/#contact')}
               class="rounded-full border border-sage/60 px-6 py-2.5 text-sm text-cream hover:bg-cream hover:text-green-deep hover:border-cream transition-colors"
             >
               Get in touch
@@ -97,11 +110,12 @@ const links = homeLinks
               <a
                 href={link.href}
                 class="text-sage hover:text-cream transition-colors text-left"
+                data-starts-on={link.startsOn}
               >
                 {link.label}
               </a>
             ))}
-            <a href="/#contact" class="text-orange hover:text-cream transition-colors text-left">
+            <a href={withBase('/#contact')} class="text-orange hover:text-cream transition-colors text-left">
               Get in touch
             </a>
           </div>

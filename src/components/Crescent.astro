@@ -1,5 +1,10 @@
 ---
-import { crescentPath, crescentBoldPath, crescentViewBox } from '../utils/crescent';
+import {
+  crescentPath,
+  crescentBoldPath,
+  crescentViewBox,
+  crescentBoldViewBox,
+} from '../utils/crescent';
 
 interface Props {
   class?: string;
@@ -9,6 +14,14 @@ interface Props {
 const { class: className = '', bold = false } = Astro.props;
 ---
 
-<svg viewBox={crescentViewBox} class={className} aria-hidden="true" focusable="false">
-  <path d={bold ? crescentBoldPath : crescentPath} fill-rule="evenodd" fill="currentColor"></path>
+<svg
+  viewBox={bold ? crescentBoldViewBox : crescentViewBox}
+  class={className}
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d={bold ? crescentBoldPath : crescentPath}
+    fill="currentColor"
+    fill-rule={bold ? 'nonzero' : 'evenodd'}></path>
 </svg>

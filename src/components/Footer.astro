@@ -1,12 +1,17 @@
 ---
-import Crescent from './Crescent.astro';
 import { site } from '../data/site';
+import { withBase } from '../utils/path';
 ---
 
 <footer class="on-dark bg-green-deep py-16 md:py-20 px-6 md:px-12">
   <div class="max-w-7xl mx-auto text-center">
-    <Crescent bold class="mx-auto w-10 text-orange mb-6" />
-    <p class="font-serif text-5xl text-cream mb-8">Alma</p>
+    <img
+      src={withBase('/logo.svg')}
+      alt="Alma Yoga"
+      width="243"
+      height="189"
+      class="mx-auto h-24 md:h-28 w-auto mb-8"
+    />
     <p class="text-sm tracking-widest uppercase text-sage mb-4">Get in touch</p>
     <a
       href={`mailto:${site.email}`}

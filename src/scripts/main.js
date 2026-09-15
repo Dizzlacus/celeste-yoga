@@ -6,6 +6,22 @@
 })();
 
 (function () {
+  const today = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/London",
+  }).format(new Date());
+
+  document.querySelectorAll("[data-starts-on]").forEach((el) => {
+    const startsOn = el.getAttribute("data-starts-on");
+    if (startsOn && startsOn < today) el.remove();
+  });
+
+  const empty = document.getElementById("events-empty");
+  if (empty && !document.querySelector("section[data-starts-on]")) {
+    empty.hidden = false;
+  }
+})();
+
+(function () {
   const burger = document.getElementById("nav-burger");
   const mobileMenu = document.getElementById("nav-mobile-panel");
   const iconOpen = document.getElementById("icon-hamburger");
@@ -111,10 +127,12 @@
     const delta = window.scrollY - sectionTop;
 
     // Keep the movement subtle and only while the hero is in view.
+    // Scale from the bottom so translateY never uncovers the card above the photo.
     const inViewDelta = Math.max(0, Math.min(delta, sectionHeight));
     const offset = Math.min(inViewDelta * 0.18, 72);
 
-    heroImage.style.transform = "translate3d(0," + offset.toFixed(2) + "px,0)";
+    heroImage.style.transform =
+      "translate3d(0," + offset.toFixed(2) + "px,0) scale(1.22)";
     ticking = false;
   }
 

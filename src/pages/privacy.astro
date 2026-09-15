@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../utils/path';
 
 const lastUpdated = new Date().toLocaleDateString('en-GB', {
   year: 'numeric',
@@ -24,7 +25,7 @@ const lastUpdated = new Date().toLocaleDateString('en-GB', {
       Last updated: {lastUpdated}
     </p>
     <div class="mt-10 pt-8 border-t border-border">
-      <a href="/" class="text-sm text-green hover:text-green-dark transition-colors">Back to home</a
+      <a href={withBase('/')} class="text-sm text-green hover:text-green-dark transition-colors">Back to home</a
       >
     </div>
   </main>

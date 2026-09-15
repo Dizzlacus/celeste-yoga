@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
+import HeroPreload from '../components/HeroPreload.astro';
 import Welcome from '../components/Welcome.astro';
 import Classes from '../components/Classes.astro';
 import Community from '../components/Community.astro';
@@ -12,6 +13,7 @@ import Contact from '../components/Contact.astro';
   title="Alma — Yoga with Celeste | Rocket™, Ashtanga, Vinyasa in Newcastle"
   description="Alma — Rocket™, Ashtanga and Vinyasa yoga with Celeste in Newcastle. An inclusive space to come as you are and do what you can."
 >
+  <HeroPreload slot="head" />
   <Hero />
   <Welcome />
   <Classes />

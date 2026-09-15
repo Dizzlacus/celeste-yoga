@@ -1,7 +1,10 @@
 ---
-import Placeholder from './Placeholder.astro';
 import Crescent from './Crescent.astro';
-import { classSchedule, yogaStyles } from '../data/site';
+import { classSchedule, currentEvents, yogaStyles } from '../data/site';
+import { getHeroImages } from '../utils/heroImages';
+import { withBase } from '../utils/path';
+
+const { avif, webp, fallback } = await getHeroImages();
 
 interface Props {
   id?: string;
@@ -35,28 +38,57 @@ const facts = [
 
 <section
   id={id}
-  class:list={['on-dark bg-green-deep pt-24 md:pt-28', compact && 'pb-16 md:pb-20']}
+  class:list={[
+    'on-dark bg-green-deep pt-24 md:pt-28',
+    compact ? 'pb-16 md:pb-20' : 'md:h-[100vh] md:max-h-[100vh] md:flex md:flex-col',
+  ]}
 >
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+  <div
+    class:list={[
+      'max-w-7xl mx-auto px-4 sm:px-6 md:px-8',
+      !compact && 'md:flex-1 md:flex md:flex-col md:min-h-0 md:w-full',
+    ]}
+  >
     <div
       class:list={[
-        'relative rounded-[1.75rem] md:rounded-[2.5rem] overflow-hidden flex items-center',
-        compact ? 'min-h-[36vh] md:min-h-[42vh]' : 'min-h-[62vh] md:min-h-[70vh]',
+        'relative rounded-[1.75rem] md:rounded-[2.5rem] overflow-hidden flex items-center isolate bg-green',
+        compact ? 'min-h-[36vh] md:min-h-[42vh]' : 'min-h-[62vh] md:flex-1 md:min-h-0',
       ]}
     >
-      <Placeholder tone="green" class="absolute inset-0" />
-      {/* Tuned against the solid green placeholder, where the intro clears AA at
-          5.1:1. A bright photograph here drops it to ~3.1:1, so re-check the
-          scrim strength when real imagery replaces the placeholder. */}
       <div
-        class="absolute inset-0 bg-gradient-to-r from-green-deep/90 via-green-deep/70 to-transparent"
+        class="absolute inset-0 md:inset-y-0 md:left-auto md:right-0 md:w-[58%]"
+        aria-hidden="true"
+      >
+        <picture class="block w-full h-full">
+          <source srcset={avif.src} type="image/avif" />
+          <source srcset={webp.src} type="image/webp" />
+          <img
+            src={fallback.src}
+            alt=""
+            width={fallback.attributes.width}
+            height={fallback.attributes.height}
+            class:list={[
+              'hero-photo w-full h-full object-cover mix-blend-multiply contrast-105 brightness-125',
+              compact ? 'object-[center_35%] md:object-[center_70%]' : 'object-[center_35%] md:object-[center_75%]',
+            ]}
+            decoding="sync"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </picture>
+      </div>
+
+      <Crescent class="absolute -right-[12%] -bottom-[18%] w-1/2 text-cream/10" />
+
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-green-deep/85 via-green-deep/60 to-green-deep/25 md:bg-gradient-to-r md:from-green-deep/90 md:via-green-deep/70 md:via-[40%] md:to-transparent"
         aria-hidden="true"
       >
       </div>
 
       <div class="relative z-10 px-7 sm:px-10 md:px-16 py-14 md:py-20 max-w-2xl">
         <div class="flex items-center gap-3 mb-6">
-          <Crescent bold class="w-5 text-orange shrink-0" />
+          <Crescent bold class="w-6 text-orange shrink-0" />
           <p class="text-sm tracking-widest uppercase text-sage">{eyebrow}</p>
         </div>
 
@@ -77,7 +109,7 @@ const facts = [
           !compact && (
             <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
               <a
-                href="/#classes"
+                href={withBase('/#classes')}
                 class="group inline-flex items-center gap-3 rounded-full bg-cream pl-7 pr-3 py-3 text-green-deep hover:bg-orange transition-colors"
               >
                 See class times
@@ -96,12 +128,14 @@ const facts = [
                   </svg>
                 </span>
               </a>
-              <a
-                href="/events"
-                class="text-cream underline underline-offset-4 hover:text-orange hover:no-underline transition-all"
-              >
-                Upcoming events
-              </a>
+              {currentEvents.length > 0 && (
+                <a
+                  href={withBase('/events')}
+                  class="text-cream underline underline-offset-4 hover:text-orange hover:no-underline transition-all"
+                >
+                  Upcoming events
+                </a>
+              )}
             </div>
           )
         }

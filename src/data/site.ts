@@ -101,11 +101,7 @@ export const classSchedule: ClassDay[] = [
   },
   {
     day: 'Weds',
-    classes: [
-      { name: 'Vinyasa @ Modern Yoga', time: '12.00pm' },
-      { name: 'Vinyasa @ Smarter Fitness', time: '6.00pm' },
-      { name: 'Nurturing Flow @ Hotpod Jesmond', time: '8.30pm' },
-    ],
+    classes: [{ name: 'Vinyasa @ Modern Yoga', time: '12.00pm' }],
   },
   {
     day: 'Thurs',
@@ -114,8 +110,8 @@ export const classSchedule: ClassDay[] = [
   {
     day: 'Fri',
     classes: [
-      { name: 'Hot Flow @ Hot Yoga Ncl', time: '10.45am' },
-      { name: 'Hotpod Flow @ Hotpod Jesmond', time: '4.00pm' },
+      { name: 'Dynamic @ Hotpod Jesmond', time: '4.00pm' },
+      { name: 'Rocket Yoga @ Hot Yoga Ncl', time: '5.45pm' },
     ],
   },
   {

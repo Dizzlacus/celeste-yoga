@@ -115,6 +115,7 @@ const structuredData = {
       image: new URL(site.founderImage, siteURL).href,
       worksFor: { '@id': businessId },
       url: site.url,
+      ...(site.sameAs.length ? { sameAs: site.sameAs } : {}),
     },
   ],
 };

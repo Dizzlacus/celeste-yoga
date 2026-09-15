@@ -1,31 +1,143 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
 import { withBase } from '../utils/path';
 
-const lastUpdated = new Date().toLocaleDateString('en-GB', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+const headingClass = 'font-serif text-2xl text-green-dark mb-3';
 ---
 
 <BaseLayout
   title="Privacy Policy — Alma"
-  description="Privacy policy for the Alma yoga website."
+  description="How Alma collects, uses and looks after your personal information."
   stickyNav={false}
 >
   <main class="max-w-3xl mx-auto px-6 py-12 md:py-16">
-    <h1 class="font-serif text-4xl md:text-5xl text-green-dark mb-6">Privacy Policy</h1>
-    <p class="text-body leading-relaxed mb-4">
-      This is a placeholder privacy policy for the Alma website. Replace this text with your own
-      policy describing how you collect, use, and protect personal information (including contact
-      form submissions and analytics, if applicable).
-    </p>
-    <p class="text-body leading-relaxed mb-4">
-      Last updated: {lastUpdated}
-    </p>
+    <h1 class="font-serif text-4xl md:text-5xl text-green-dark mb-4">Privacy Policy</h1>
+    <p class="text-sm text-muted mb-10">Last updated: {site.privacyLastUpdated}</p>
+
+    <div class="space-y-10 text-body leading-relaxed">
+      <section>
+        <h2 class={headingClass}>Who we are</h2>
+        <p>
+          This website is run by {site.founderName}, trading as {site.name}, teaching yoga in{' '}
+          {site.areaServed}. For privacy questions, email{' '}
+          <a
+            href={`mailto:${site.email}`}
+            class="text-green hover:text-green-dark transition-colors">{site.email}</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2 class={headingClass}>What we collect</h2>
+        <p class="mb-4">If you use the contact or newsletter form, we collect:</p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>your name</li>
+          <li>your email address</li>
+          <li>any message you choose to send</li>
+          <li>whether you asked to receive class and event updates</li>
+        </ul>
+        <p class="mt-4">
+          We do not ask for payment details on this site. Event bookings go through Stripe, and
+          Instagram is provided by Meta — those services have their own privacy policies.
+        </p>
+      </section>
+
+      <section>
+        <h2 class={headingClass}>How we use your information</h2>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>to reply to questions about classes, workshops and events</li>
+          <li>
+            if you opt in, to send occasional emails about classes, workshops and events
+          </li>
+          <li>to look after the website and keep it secure</li>
+        </ul>
+        <p class="mt-4">We do not sell your information or use it for advertising.</p>
+      </section>
+
+      <section>
+        <h2 class={headingClass}>Our legal bases</h2>
+        <p class="mb-4">
+          Under UK GDPR, we rely on:
+        </p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>
+            <strong class="text-ink font-medium">legitimate interests</strong> — to reply when you
+            get in touch
+          </li>
+          <li>
+            <strong class="text-ink font-medium">consent</strong> — to send newsletter or class
+            updates. You can opt out at any time by emailing us.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class={headingClass}>Who we share it with</h2>
+        <p class="mb-4">We only share what we need to run the site:</p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>
+            <strong class="text-ink font-medium">Formspree</strong> processes contact and newsletter
+            form submissions on our behalf
+          </li>
+          <li>
+            <strong class="text-ink font-medium">GitHub Pages</strong> hosts this website
+          </li>
+          <li>
+            <strong class="text-ink font-medium">Stripe</strong> processes event bookings if you
+            follow a booking link
+          </li>
+        </ul>
+        <p class="mt-4">
+          Some of these providers may store or process data outside the UK. They are used only as
+          needed to provide the site and the services you ask for.
+        </p>
+      </section>
+
+      <section>
+        <h2 class={headingClass}>How long we keep it</h2>
+        <p>
+          Contact messages are kept for as long as we need them to reply and follow up, then deleted.
+          Newsletter details are kept until you ask to be removed. You can email{' '}
+          <a
+            href={`mailto:${site.email}`}
+            class="text-green hover:text-green-dark transition-colors">{site.email}</a> at
+          any time to update or delete your information.
+        </p>
+      </section>
+
+      <section>
+        <h2 class={headingClass}>Cookies and analytics</h2>
+        <p>
+          This site does not use advertising cookies or analytics tools. Your browser may still
+          store standard technical data when you visit, such as your IP address, in server logs
+          used by our hosting provider.
+        </p>
+      </section>
+
+      <section>
+        <h2 class={headingClass}>Your rights</h2>
+        <p class="mb-4">You can ask us to:</p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li>see the personal information we hold about you</li>
+          <li>correct it if it is wrong</li>
+          <li>delete it</li>
+          <li>stop sending you emails</li>
+          <li>object to how we use it, or ask us to restrict that use</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class={headingClass}>Changes</h2>
+        <p>
+          We may update this policy from time to time. The latest version will always be on this
+          page.
+        </p>
+      </section>
+    </div>
+
     <div class="mt-10 pt-8 border-t border-border">
-      <a href={withBase('/')} class="text-sm text-green hover:text-green-dark transition-colors">Back to home</a
+      <a href={withBase('/')} class="text-sm text-green hover:text-green-dark transition-colors"
+        >Back to home</a
       >
     </div>
   </main>

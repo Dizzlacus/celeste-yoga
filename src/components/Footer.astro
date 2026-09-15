@@ -1,6 +1,7 @@
 ---
 import { site } from '../data/site';
 import { withBase } from '../utils/path';
+import InstagramIcon from './InstagramIcon.astro';
 ---
 
 <footer class="on-dark bg-green-deep py-16 md:py-20 px-6 md:px-12">
@@ -15,10 +16,26 @@ import { withBase } from '../utils/path';
     <p class="text-sm tracking-widest uppercase text-sage mb-4">Get in touch</p>
     <a
       href={`mailto:${site.email}`}
-      class="inline-block text-cream hover:text-orange transition-colors mb-10">{site.email}</a
+      class="inline-block text-cream hover:text-orange transition-colors">{site.email}</a
     >
-    <p class="text-xs text-sage/80 tracking-wide">
+    <div class="flex items-center justify-center gap-5 mt-6 mb-10">
+      <a
+        href={site.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-cream hover:text-orange transition-colors"
+        aria-label={`Alma Yoga on Instagram, @${site.instagramHandle}`}
+      >
+        <InstagramIcon class="w-6 h-6" />
+      </a>
+    </div>
+    <p class="text-xs text-sage/80 tracking-wide mb-3">
       © <span id="footer-year"></span> Alma. All rights reserved.
     </p>
+    <a
+      href={withBase('/privacy')}
+      class="text-xs text-sage/80 hover:text-cream transition-colors underline underline-offset-4"
+      >Privacy policy</a
+    >
   </div>
 </footer>

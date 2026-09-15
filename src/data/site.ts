@@ -24,7 +24,9 @@ export const site = {
   // Domain and email still point at the previous brand until the new ones are
   // registered; update here and in public/CNAME together.
   url: 'https://celesteyoga.co.uk',
-  email: 'Celestehyoga@gmail.com',
+  email: 'celestehyoga@gmail.com',
+  instagram: 'https://www.instagram.com/alma.yogancl/',
+  instagramHandle: 'alma.yogancl',
   description:
     'Alma — Rocket™, Ashtanga and Vinyasa yoga with Celeste in Newcastle. An inclusive space to come as you are and do what you can.',
   founderName: 'Celeste',
@@ -34,8 +36,8 @@ export const site = {
   addressCountry: 'GB',
   areaServed: 'Newcastle upon Tyne',
   priceRange: '££',
-  // Add social profile URLs here as they become available (Instagram, etc.).
-  sameAs: [] as string[],
+  sameAs: ['https://www.instagram.com/alma.yogancl/'],
+  privacyLastUpdated: '15 September 2026',
   ogImage: heroImage.src,
   locale: 'en_GB',
 } as const;

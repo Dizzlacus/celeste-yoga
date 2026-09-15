@@ -73,18 +73,65 @@
   const form = document.getElementById("contact-form");
   const block = document.getElementById("contact-form-block");
   const successEl = document.getElementById("contact-success");
+  const errorEl = document.getElementById("contact-form-error");
   if (!form || !block || !successEl) return;
+
+  function showError(message) {
+    if (!errorEl) return;
+    errorEl.textContent = message;
+    errorEl.classList.remove("hidden");
+  }
+
+  function clearError() {
+    if (!errorEl) return;
+    errorEl.textContent = "";
+    errorEl.classList.add("hidden");
+  }
+
+  function setSuccessCopy(kind) {
+    const titleEl = document.getElementById("contact-success-title");
+    const bodyEl = document.getElementById("contact-success-body");
+    if (!titleEl || !bodyEl) return;
+    titleEl.textContent = successEl.getAttribute("data-title-" + kind) || "Thank you";
+    bodyEl.textContent = successEl.getAttribute("data-body-" + kind) || "";
+  }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const endpoint = form.getAttribute("action");
     if (!endpoint) return;
+    clearError();
+
     const honeypot = form.querySelector('input[name="website"]');
     if (honeypot && honeypot.value.trim() !== "") {
       // Bots often fill hidden fields; silently drop.
       form.reset();
       return;
     }
+
+    const message = form.querySelector("#message");
+    const newsletter = form.querySelector("#newsletter");
+    const subject = form.querySelector("#contact-subject");
+    const hasMessage = Boolean(message && message.value.trim());
+    const wantsNewsletter = Boolean(newsletter && newsletter.checked);
+
+    if (!hasMessage && !wantsNewsletter) {
+      showError("Add a message or tick the newsletter box.");
+      return;
+    }
+
+    if (subject) {
+      if (hasMessage && wantsNewsletter) {
+        subject.value = "Alma website enquiry + newsletter";
+      } else if (wantsNewsletter) {
+        subject.value = "Alma newsletter signup";
+      } else {
+        subject.value = "Alma website enquiry";
+      }
+    }
+
+    const successKind =
+      hasMessage && wantsNewsletter ? "both" : wantsNewsletter ? "newsletter" : "message";
 
     try {
       const response = await fetch(endpoint, {
@@ -97,15 +144,16 @@
 
       if (!response.ok) throw new Error("Failed to send form");
 
+      setSuccessCopy(successKind);
       block.classList.add("hidden");
       successEl.classList.remove("hidden");
       form.reset();
       window.setTimeout(() => {
         successEl.classList.add("hidden");
         block.classList.remove("hidden");
-      }, 3000);
+      }, 5000);
     } catch (error) {
-      // Keep current UX simple and avoid a blocking alert.
+      showError("Something went wrong. Please try again or email me directly.");
       console.error(error);
     }
   });

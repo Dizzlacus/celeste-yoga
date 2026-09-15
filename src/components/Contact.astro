@@ -1,5 +1,7 @@
 ---
 import { site } from '../data/site';
+import { withBase } from '../utils/path';
+import InstagramIcon from './InstagramIcon.astro';
 
 const fieldClass =
   'w-full px-5 py-4 bg-paper border border-border rounded-card text-ink placeholder-muted focus:outline-none focus:border-green transition-colors';
@@ -11,21 +13,28 @@ const fieldClass =
       <div>
         <p class="text-sm font-semibold tracking-widest uppercase text-green mb-4">Contact</p>
         <h2 class="font-serif text-4xl md:text-6xl leading-[1.05] text-green-dark mb-6">
-          Say hello
+          Stay in touch
         </h2>
         <p class="text-body leading-relaxed max-w-md mb-8">
-          Questions about a class, a workshop, or where to start? Send a message and I&rsquo;ll get
-          back to you.
+          Questions about a class, a workshop, or where to start? Send a message — or leave your
+          email to hear about upcoming classes and events.
         </p>
-        <p class="text-sm text-muted leading-relaxed max-w-md mb-8">
-          Even yogis need a pause sometimes. I occasionally step away from Instagram to return to
-          myself — thank you for understanding.
-        </p>
-        <a
-          href={`mailto:${site.email}`}
-          class="text-green underline underline-offset-4 hover:no-underline transition-all"
-          >{site.email}</a
-        >
+        <div class="flex flex-col items-start gap-3">
+          <a
+            href={`mailto:${site.email}`}
+            class="text-green hover:text-green-dark transition-colors"
+            >{site.email}</a
+          >
+          <a
+            href={site.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-green hover:text-green-dark transition-colors"
+          >
+            <InstagramIcon />
+            <span>@{site.instagramHandle}</span>
+          </a>
+        </div>
       </div>
 
       <div>
@@ -36,12 +45,14 @@ const fieldClass =
             action="https://formspree.io/f/xnjllrza"
             method="POST"
           >
+            <input type="hidden" name="_subject" id="contact-subject" value="Alma website enquiry" />
             <input
               type="text"
               id="name"
               name="name"
               required
               autocomplete="name"
+              aria-label="Name"
               class={fieldClass}
               placeholder="Name"
             />
@@ -51,32 +62,70 @@ const fieldClass =
               name="email"
               required
               autocomplete="email"
+              aria-label="Email"
               class={fieldClass}
               placeholder="Email"
             />
             <textarea
               id="message"
               name="message"
-              required
               rows="6"
+              aria-label="Your message (optional)"
               class={`${fieldClass} resize-none`}
-              placeholder="Your message..."></textarea>
+              placeholder="Your message (optional)"></textarea>
+            <div class="flex items-start gap-3">
+              <input
+                type="checkbox"
+                id="newsletter"
+                name="newsletter"
+                value="yes"
+                class="mt-1 size-4 shrink-0 accent-green"
+              />
+              <label for="newsletter" class="text-sm text-body leading-relaxed">
+                Sign me up for occasional updates on classes, workshops and events.
+              </label>
+            </div>
             <div class="hidden" aria-hidden="true">
               <label for="website">Website</label>
               <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
             </div>
+            <p
+              id="contact-form-error"
+              class="hidden text-sm text-clay"
+              role="status"
+              aria-live="polite"
+            >
+            </p>
             <button
               type="submit"
               class="rounded-full bg-green px-9 py-3.5 text-paper hover:bg-green-dark transition-colors"
             >
-              Send message
+              Send
             </button>
+            <p class="text-xs text-muted leading-relaxed">
+              I only use your email to reply, and — if you opt in — to send occasional class and
+              event updates.
+              <a href={withBase('/privacy')} class="underline underline-offset-2 hover:text-green"
+                >Privacy policy</a
+              >.
+            </p>
           </form>
         </div>
 
-        <div id="contact-success" class="hidden py-12" role="status" aria-live="polite">
-          <p class="font-serif text-3xl text-green-dark mb-3">Thank you for reaching out</p>
-          <p class="text-body">I&rsquo;ll get back to you soon.</p>
+        <div
+          id="contact-success"
+          class="hidden py-12"
+          role="status"
+          aria-live="polite"
+          data-title-message="Thank you for reaching out"
+          data-body-message="I&rsquo;ll get back to you soon."
+          data-title-newsletter="You&rsquo;re on the list"
+          data-body-newsletter="I&rsquo;ll be in touch with class and event updates."
+          data-title-both="Thank you"
+          data-body-both="I&rsquo;ll get back to you soon — and you&rsquo;re on the list for class and event updates."
+        >
+          <p id="contact-success-title" class="font-serif text-3xl text-green-dark mb-3"></p>
+          <p id="contact-success-body" class="text-body"></p>
         </div>
       </div>
     </div>

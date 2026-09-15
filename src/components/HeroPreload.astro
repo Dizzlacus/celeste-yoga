@@ -4,4 +4,10 @@ import { getHeroImages } from '../utils/heroImages';
 const { avif } = await getHeroImages();
 ---
 
-<link rel="preload" as="image" type="image/avif" href={avif.src} />
+<link
+  rel="preload"
+  as="image"
+  type="image/avif"
+  href={avif.src}
+  media="(min-width: 768px)"
+/>

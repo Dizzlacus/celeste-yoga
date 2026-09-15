@@ -119,9 +119,16 @@
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   if (reduceMotion.matches) return;
 
+  const desktop = window.matchMedia("(min-width: 768px)");
   let ticking = false;
 
   function updateHeroParallax() {
+    if (!desktop.matches) {
+      heroImage.style.transform = "";
+      ticking = false;
+      return;
+    }
+
     const sectionTop = hero.offsetTop;
     const sectionHeight = hero.offsetHeight;
     const delta = window.scrollY - sectionTop;

@@ -56,20 +56,21 @@ const facts = [
       ]}
     >
       <div
-        class="absolute inset-0 md:inset-y-0 md:left-auto md:right-0 md:w-[58%]"
+        class="hidden md:block absolute inset-y-0 right-0 w-[58%]"
         aria-hidden="true"
       >
         <picture class="block w-full h-full">
-          <source srcset={avif.src} type="image/avif" />
-          <source srcset={webp.src} type="image/webp" />
+          <source media="(min-width: 768px)" srcset={avif.src} type="image/avif" />
+          <source media="(min-width: 768px)" srcset={webp.src} type="image/webp" />
+          <source media="(min-width: 768px)" srcset={fallback.src} />
           <img
-            src={fallback.src}
+            src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA="
             alt=""
             width={fallback.attributes.width}
             height={fallback.attributes.height}
             class:list={[
               'hero-photo w-full h-full object-cover mix-blend-multiply contrast-105 brightness-125',
-              compact ? 'object-[center_35%] md:object-[center_70%]' : 'object-[center_35%] md:object-[center_75%]',
+              compact ? 'object-[center_70%]' : 'object-[center_75%]',
             ]}
             decoding="sync"
             loading="eager"
@@ -81,7 +82,7 @@ const facts = [
       <Crescent class="absolute -right-[12%] -bottom-[18%] w-1/2 text-cream/10" />
 
       <div
-        class="absolute inset-0 bg-gradient-to-b from-green-deep/85 via-green-deep/60 to-green-deep/25 md:bg-gradient-to-r md:from-green-deep/90 md:via-green-deep/70 md:via-[40%] md:to-transparent"
+        class="absolute inset-0 bg-gradient-to-r from-green-deep/90 via-green-deep/70 via-[40%] to-transparent"
         aria-hidden="true"
       >
       </div>

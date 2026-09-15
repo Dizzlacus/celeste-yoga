@@ -81,22 +81,17 @@
   pointer-events: none;
 }
 /* The hero photo is a multiply layer on the green card, so its edge has to
-   dissolve into the base instead of stopping on a straight line. Mobile fades
-   downward (full-bleed photo, copy over the top); desktop fades leftward from
-   the right-anchored panel.
+   dissolve into the base instead of stopping on a straight line. Desktop only
+   — mobile has no photo.
    Must sit on the <img> itself, not its wrapper: a mask isolates its element's
    group, so masking an ancestor would leave mix-blend-multiply with nothing but
    transparency to blend against and the photo would render untinted. */
-.hero-photo {
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 35%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 35%);
-  transform-origin: center bottom;
-  will-change: transform;
-}
 @media (min-width: 768px) {
   .hero-photo {
     -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 30%);
     mask-image: linear-gradient(to right, transparent 0%, #000 30%);
+    transform-origin: center bottom;
+    will-change: transform;
   }
 }
 

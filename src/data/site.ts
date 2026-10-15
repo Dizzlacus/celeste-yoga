@@ -89,6 +89,20 @@ export const upcomingEvents: UpcomingEvent[] = [
     imageAlt: 'Yoga practice and community gathering',
   },
   {
+    title: 'Sunday Slow Down and Social',
+    description: [
+      'This Sunday evening chill will include a balanced practice of a gentle flow leading into a restorative yin before we have some hot drinks, chit chat social time and yes… cake is included!',
+      'We have 2hrs of a cosy winter evening chill — think dimmed lights, candles and cosy feel-good vibes to reconnect to yourself as we meet like-minded lovely people.',
+    ],
+    date: 'Sunday 1st November',
+    startsOn: '2026-11-01',
+    time: '5–7pm',
+    location: 'Modern Yoga, Gosforth',
+    cost: '£20.00',
+    bookingUrl: 'https://buy.stripe.com/00w3cugWy6mudz76IWbAs00',
+    imageAlt: 'Cosy candlelit evening yoga and social',
+  },
+  {
     title: 'Winter Wind Down Retreat Day',
     description: [
       'Back for a 2nd year, this wind down for winter is a full day retreat and will include two contrasting practices, guest teachers, a soundbath, lunch, snacks and all refreshments.',
